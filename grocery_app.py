@@ -70,11 +70,12 @@ item_d = OrderedDict()
 r = 0
 c = 0
 c_cnt = 0
-for i in items:
+sorted_items = sorted(items)
+for i in sorted_items:
     item_d.update({i: item(content_box, r, c, i, 0)})
     r += 1
     c_cnt += 1
-    if np.mod(c_cnt, 10) == 0:
+    if np.mod(c_cnt, 15) == 0:
         c += 4
         c_cnt = 0
         r = 0
