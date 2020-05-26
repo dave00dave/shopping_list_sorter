@@ -6,6 +6,7 @@ Created on Sun May 24 20:17:24 2020
 @author: daveandmarinda
 """
 import numpy as np
+import csv
 from guizero import App, Box, Text, TextBox, PushButton
 
 class item:
@@ -40,9 +41,25 @@ def update_list():
             else:
                 list_in_order.append(i)
                 d_str += str(i + "\n")
-    # list_display.value = list_in_order
     list_display.value = d_str
+    return list_in_order
 
+def save_list():
+    list_in_order = update_list()
+    save_name = app.question("Save to File", "Enter Name to Save List As")
+    try:
+        tmp = save_name.split('.')
+        if tmp[-1] != 'csv':
+            filename = tmp[0] + '.csv'
+        else:
+            filename = save_name
+    except:
+        filename = save_name + '.csv'
+        pass
+    with open(filename, mode='w') as write_file:
+        file_writer = csv.writer(write_file, delimiter='v')
+        for i in list_in_order:
+            file_writer.writerow([i])
 
 app = App()
 
