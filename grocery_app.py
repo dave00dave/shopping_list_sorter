@@ -20,12 +20,14 @@ class item:
     def add_1(self):
         val = int(self.val.value)
         self.val.value = str(val+1)
+        update_list()
     def sub_1(self):
         val = int(self.val.value)
         if val - 1 >= 0:
             self.val.value = str(val-1)
         else:
             self.val.value = 0
+        update_list()
 
 def update_list():
     list_in_order = []
@@ -48,7 +50,7 @@ title_box = Box(app, width="fill", align="top", border=True)
 Text(title_box, text="title")
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
-PushButton(buttons_box, text="Update List", command=update_list, align="left")
+PushButton(buttons_box, text="Save List", command=save_list, align="left")
 
 list_box = Box(app, height="fill", align="right", border=True)
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
