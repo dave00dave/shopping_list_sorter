@@ -12,11 +12,11 @@ from collections import OrderedDict
 class item:
     def __init__(self, box, row, col, label, def_val):
         self.text = Text(box, grid=[col+0, row], text=label, align="right")
-        self.plus = PushButton(box, grid=[col+1, row], text="+",
+        self.plus = PushButton(box, grid=[col+3, row], text="+",
                                command=self.add_1, align="left")
         self.val = TextBox(box, grid=[col+2, row], text=str(def_val), width=2,
                            align="left")
-        self.minus = PushButton(box, grid=[col+3, row], text="-",
+        self.minus = PushButton(box, grid=[col+1, row], text="-",
                                 command=self.sub_1, align="left")
     def add_1(self):
         val = int(self.val.value)
