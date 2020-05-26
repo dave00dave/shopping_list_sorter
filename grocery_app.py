@@ -7,7 +7,6 @@ Created on Sun May 24 20:17:24 2020
 """
 import numpy as np
 from guizero import App, Box, Text, TextBox, PushButton
-from collections import OrderedDict
 
 class item:
     def __init__(self, box, row, col, label, def_val):
@@ -57,30 +56,29 @@ list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
 
 content_box = Box(app, align="top", layout="grid", width="fill", border=True)
 
-items = ['fruit',
-         'lettuce',
-         'carrots',
-         'bagels',
-         'bread',
-         'buns',
-         'raisins',
-         'crackers',
-         'graham crackers',
-         'tortilla chips',
-         'mild salsa',
-         'medium salsa',
-         'hummus',
-         'cheese sticks',
-         'pretzels',
-         'popcorn',
-         'flour',
-         'sugar',
-         'brown sugar',
-         'milk',
-         'frozen pizza']
+items = ['Fruit',
+         'Lettuce',
+         'Carrots',
+         'Bagels',
+         'Bread',
+         'Buns',
+         'Raisins',
+         'Crackers',
+         'Graham Crackers',
+         'Tortilla Chips',
+         'Mild Salsa',
+         'Medium Salsa',
+         'Hummus',
+         'Cheese Sticks',
+         'Pretzels',
+         'Popcorn',
+         'Flour',
+         'Sugar',
+         'Brown Sugar',
+         'Milk',
+         'Frozen Pizza']
 
-
-item_d = OrderedDict()
+item_d = dict()
 r = 0
 c = 0
 c_cnt = 0
