@@ -30,13 +30,18 @@ class item:
 
 def update_list():
     list_in_order = []
+    d_str = ""
     for i in items:
         if int(item_d[i].val.value) > 0:
             if int(item_d[i].val.value) > 1:
                 list_in_order.append(str(i + ' (' + item_d[i].val.value + ')'))
+                d_str += str(i + ' (' + item_d[i].val.value + ')\n')
             else:
                 list_in_order.append(i)
-    print(list_in_order)
+                d_str += str(i + "\n")
+    # list_display.value = list_in_order
+    list_display.value = d_str
+
 
 app = App()
 
@@ -47,7 +52,8 @@ buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Update List", command=update_list, align="left")
 
 list_box = Box(app, height="fill", align="right", border=True)
-# list_display = Textbox(list_box, )
+list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
+                       width=20, align="left", text="")
 
 content_box = Box(app, align="top", layout="grid", width="fill", border=True)
 
