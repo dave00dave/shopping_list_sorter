@@ -65,6 +65,7 @@ def load_list():
     load_file = app.select_file(title="Select Saved List", folder=".",
                                 filetypes=[["CSV files", ".csv"]])
     if load_file != '':
+        clear_list()
         loaded_d = dict()
         with open(load_file) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -81,7 +82,12 @@ def load_list():
                 if k == i:
                     n.val.value = v
                     break
+        update_list()
 
+def clear_list():
+    for n in item_d.values():
+        n.val.value = 0
+    update_list()
 
 app = App()
 
@@ -91,6 +97,7 @@ Text(title_box, text="title")
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
+PushButton(buttons_box, text="Clear List", command=clear_list, align="right")
 
 list_box = Box(app, height="fill", align="right", border=True)
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
