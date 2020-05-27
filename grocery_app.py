@@ -92,7 +92,7 @@ def clear_list():
 app = App()
 
 title_box = Box(app, width="fill", align="top", border=True)
-Text(title_box, text="title")
+Text(title_box, text="Grocery List Sorter")
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
