@@ -61,6 +61,28 @@ def save_list():
         for i in list_in_order:
             file_writer.writerow([i])
 
+def load_list():
+    load_file = app.select_file(title="Select Saved List", folder=".",
+                                filetypes=[["CSV files", ".csv"]])
+    if load_file != '':
+        loaded_d = dict()
+        with open(load_file) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            for row in csv_reader:
+                tmp = row[0]
+                if tmp[-1] == ')':
+                    tmp_num = int(tmp[-2])
+                    loaded_d.update({tmp[0:-4]: tmp_num})
+                else:
+                    loaded_d.update({tmp: 1})
+
+        for k, v in loaded_d.items():
+            for i, n in item_d.items():
+                if k == i:
+                    n.val.value = v
+                    break
+
+
 app = App()
 
 title_box = Box(app, width="fill", align="top", border=True)
@@ -68,6 +90,7 @@ Text(title_box, text="title")
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
+PushButton(buttons_box, text="Load List", command=load_list, align="left")
 
 list_box = Box(app, height="fill", align="right", border=True)
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
