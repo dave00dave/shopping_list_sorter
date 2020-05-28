@@ -89,6 +89,10 @@ def clear_list():
         n.val.value = 0
     update_list()
 
+def ask_clear_list():
+    if app.yesno("Clear", "Do you want to clear the list?"):
+        clear_list()
+
 app = App()
 
 title_box = Box(app, width="fill", align="top", border=True)
@@ -97,7 +101,7 @@ Text(title_box, text="Grocery List Sorter")
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
-PushButton(buttons_box, text="Clear List", command=clear_list, align="right")
+PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="right")
 
 list_box = Box(app, height="fill", align="right", border=True)
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
