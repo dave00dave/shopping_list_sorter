@@ -33,7 +33,7 @@ class item:
 def update_list():
     list_in_order = []
     d_str = ""
-    for i in items:
+    for i in g_items:
         if int(item_d[i].val.value) > 0:
             if int(item_d[i].val.value) > 1:
                 list_in_order.append(str(i + ' (' + item_d[i].val.value + ')'))
@@ -93,6 +93,45 @@ def ask_clear_list():
     if app.yesno("Clear", "Do you want to clear the list?"):
         clear_list()
 
+def load_store(store):
+    ret_val = dict()
+    if store == 'ask':
+        load_file = app.select_file(title="Select Store", folder=".",
+                                    filetypes=[["CSV files", ".csv"]])
+    elif store[-4:]:
+        load_file = store
+    else:
+        app.error('Incorrect File', 'Incorrect file type selected')
+
+    if 'load_file' in locals():
+        items = []
+        with open(load_file, encoding='utf-8-sig') as csv_file:  # handle csv's saved by excel
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            for row in csv_reader:
+                items.append(row[0])
+        # TODO: handle cases where I load a store with fewer items that were previously loaded
+        r = 0
+        c = 0
+        c_cnt = 0
+        sorted_items = sorted(items)
+        for i in sorted_items:
+            ret_val.update({i: item(content_box, r, c, i, 0)})
+            r += 1
+            c_cnt += 1
+            if np.mod(c_cnt, 15) == 0:
+                c += 4
+                c_cnt = 0
+                r = 0
+    return items, ret_val
+
+def load_store_clear():
+    global g_items, item_d
+    item_d.clear()
+    g_items = []
+    g_items, item_d = load_store('ask')
+    clear_list()
+
+
 app = App()
 
 title_box = Box(app, width="fill", align="top", border=True)
@@ -101,6 +140,7 @@ Text(title_box, text="Grocery List Sorter")
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
+PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="right")
 
 list_box = Box(app, height="fill", align="right", border=True)
@@ -109,41 +149,28 @@ list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
 
 content_box = Box(app, align="top", layout="grid", width="fill", border=True)
 
-items = ['Fruit',
-         'Lettuce',
-         'Carrots',
-         'Bagels',
-         'Bread',
-         'Buns',
-         'Raisins',
-         'Crackers',
-         'Graham Crackers',
-         'Tortilla Chips',
-         'Mild Salsa',
-         'Medium Salsa',
-         'Hummus',
-         'Cheese Sticks',
-         'Pretzels',
-         'Popcorn',
-         'Flour',
-         'Sugar',
-         'Brown Sugar',
-         'Milk',
-         'Frozen Pizza']
+# items = ['Fruit',
+#          'Lettuce',
+#          'Carrots',
+#          'Bagels',
+#          'Bread',
+#          'Buns',
+#          'Raisins',
+#          'Crackers',
+#          'Graham Crackers',
+#          'Tortilla Chips',
+#          'Mild Salsa',
+#          'Medium Salsa',
+#          'Hummus',
+#          'Cheese Sticks',
+#          'Pretzels',
+#          'Popcorn',
+#          'Flour',
+#          'Sugar',
+#          'Brown Sugar',
+#          'Milk',
+#          'Frozen Pizza']
 
-item_d = dict()
-r = 0
-c = 0
-c_cnt = 0
-sorted_items = sorted(items)
-for i in sorted_items:
-    item_d.update({i: item(content_box, r, c, i, 0)})
-    r += 1
-    c_cnt += 1
-    if np.mod(c_cnt, 15) == 0:
-        c += 4
-        c_cnt = 0
-        r = 0
-
-
+default_store = 'Lawrence_Aldi.csv'
+g_items, item_d = load_store(default_store)
 app.display()
