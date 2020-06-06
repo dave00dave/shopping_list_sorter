@@ -109,6 +109,8 @@ def load_store(store):
             csv_reader = csv.reader(csv_file, delimiter=',')
             for row in csv_reader:
                 items.append(row[0])
+
+        items = [x.replace('\t', '') for x in items]
         # TODO: handle cases where I load a store with fewer items that were previously loaded
         r = 0
         c = 0
