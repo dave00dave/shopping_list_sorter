@@ -118,7 +118,7 @@ def load_store(store):
             ret_val.update({i: item(content_box, r, c, i, 0)})
             r += 1
             c_cnt += 1
-            if np.mod(c_cnt, 15) == 0:
+            if np.mod(c_cnt, 20) == 0:
                 c += 4
                 c_cnt = 0
                 r = 0
@@ -132,7 +132,7 @@ def load_store_clear():
     clear_list()
 
 
-app = App(title="Grocery List Sorter")
+app = App(title="Grocery List Sorter", height=1200, width=1440)
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
@@ -142,7 +142,7 @@ PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="right"
 
 list_box = Box(app, height="fill", align="right", border=True)
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
-                       width=20, align="left", text="")
+                       width=30, align="left", text="")
 
 content_box = Box(app, align="top", layout="grid", width="fill", border=True)
 
