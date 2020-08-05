@@ -31,21 +31,42 @@ class item:
         update_list()
 
 def update_list():
-    list_in_order = []
+    global list_in_order
+    disp_list = list_display.value.splitlines()
+    disp_list = [x.replace('\t', '') for x in disp_list]
+    disp_list = [x.replace('\t', '') for x in list_display.value.splitlines()]
+    # disp_list = [x.replace("'", '') for x in disp_list]
+    # print(list(set(disp_list) - set(g_items)))
+    custom_items = np.setdiff1d(disp_list, g_items)
+    custom_items = np.delete(custom_items, 0)
+
+    # find items that have (#); they h will be flagged as custom by the first check
+    dc = []  # double check list
+    for i in custom_items:
+        if i[-2].isnumeric():
+            x = i.find('(')
+            if x > 0:  # find returns -1 if the character isn't found
+                dc.append(i[:-x])
+
+
+    print(custom_items)
+    tmp_list = []
     d_str = ""
     for i in g_items:
         if int(item_d[i].val.value) > 0:
             if int(item_d[i].val.value) > 1:
-                list_in_order.append(str(i + ' (' + item_d[i].val.value + ')'))
+                tmp_list.append(str(i + ' (' + item_d[i].val.value + ')'))
                 d_str += str(i + ' (' + item_d[i].val.value + ')\n')
             else:
-                list_in_order.append(i)
+                tmp_list.append(i)
                 d_str += str(i + "\n")
+    for i in custom_items:
+        d_str += str(i + "\n")
     list_display.value = d_str
-    return list_in_order
+
 
 def save_list():
-    list_in_order = update_list()
+    update_list()
     save_name = app.question("Save to File", "Enter Name to Save List As")
     try:
         tmp = save_name.split('.')
