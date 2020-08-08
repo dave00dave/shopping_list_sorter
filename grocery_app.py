@@ -45,14 +45,13 @@ def update_list():
     dc = []  # double check list
     for i in custom_items:
         if i[-2].isnumeric():
-            x = i.find('(')
-            if x > 0:  # find returns -1 if the character isn't found
+            x = [j for j in range(len(i)) if i.startswith('(', j)]
+            if x:
                 print(i, x)
-                dc.append(i[:(x-1)])
-                if i[:(x-1)] in g_items:
+                dc.append(i[:(x[-1]-1)])
+                if i[:(x[-1]-1)] in g_items:
                     custom_items = custom_items[custom_items != i]
 
-    print(custom_items)
     tmp_list = []
     d_str = ""
     for i in g_items:
