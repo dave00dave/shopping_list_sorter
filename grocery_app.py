@@ -8,6 +8,7 @@ Created on Sun May 24 20:17:24 2020
 import numpy as np
 import csv
 from guizero import App, Box, Text, TextBox, PushButton
+from tkinter import Scrollbar
 
 class item:
     def __init__(self, box, row, col, label, def_val):
@@ -46,8 +47,10 @@ def update_list():
         if i[-2].isnumeric():
             x = i.find('(')
             if x > 0:  # find returns -1 if the character isn't found
-                dc.append(i[:-x])
-
+                print(i, x)
+                dc.append(i[:(x-1)])
+                if i[:(x-1)] in g_items:
+                    custom_items = custom_items[custom_items != i]
 
     print(custom_items)
     tmp_list = []
@@ -108,6 +111,7 @@ def load_list():
 def clear_list():
     for n in item_d.values():
         n.val.value = 0
+    list_display.value = ''
     update_list()
 
 def ask_clear_list():
