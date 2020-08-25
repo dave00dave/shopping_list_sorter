@@ -30,6 +30,7 @@ Broccoli (fresh)
 "Sandwhich Cheese	"
 "American Cheese	"
 "Sandwhich Meat	"
+Biscuits (canned)
 "Flour	"
 "Sugar	"
 "Brown Sugar	"
@@ -37,6 +38,8 @@ Broccoli (fresh)
 "Baking Powder	"
 "Yeast	"
 "Baking Soda	"
+Sweetened Condensed Milk
+Evaporated Milk
 "Pudding (Chocolate)	"
 "Pudding (Vanilla)	"
 "Gelatin	"
@@ -50,8 +53,21 @@ Canola Oil
 "Cocoa Powder	"
 "Salt	"
 "Pepper	"
+Worchestershire Sauce
+Steak Sauce
+BBQ Sauce
+Ketchup
+Mustard (yellow)
+Mustard (Spicy Brown)
+Mayo
+Miracle Whip
+Salad Dressing
+Olives
+Ranch Mix
+Italian Dressing Mix
 Cheerios
 Chex
+Mini Wheats
 "Syrup	"
 "Potatoes (Russet)	"
 "Potatoes (Red)	"
@@ -65,6 +81,9 @@ Chex
 "TP	"
 "Paper Towels	"
 "Aluminum Foil	"
+Ziploc (sandwhich)
+Ziploc (freezer)
+Ziploc (gallon)
 "Applesauce	"
 "Fruit (Canned)	"
 "Corn (Canned)	"
@@ -75,6 +94,7 @@ Chex
 "Pinto Beans	"
 "Chili Beans	"
 "Red Beans	"
+Baked Beans
 "Tomato Paste (6 oz)	"
 Tomato Sauce (8 oz)
 "Crushed Tomatoes	(28 oz)"
@@ -84,8 +104,10 @@ Mushrooms
 "Taco Seasoning	"
 "Refried Beans	"
 "Tortillas	"
+Suddenly Salad
 "Pizza Crust	"
 "Pepperoni	"
+Mac and Cheese
 "Parmesan Cheese	"
 "Spahetti	"
 "Fettucine	"
@@ -95,21 +117,25 @@ Mushrooms
 "Pesto	"
 "Marinara Sauce	"
 "Pasta Sauce	"
+Sausage (Italian lb.)
 Fish (lb.)
 "Beef (Ground, lb.)	"
 "Chicken Breasts (lb)	"
+Bacon
+Sausage (bulk)
 Hot Dogs
-Canned Biscuits
 Cream Cheese
 Mozz. (shredded)
 Cheddar (shredded)
 Pizza Cheese (shredded)
 Stick Butter
 Tub Butter
+Yogurt
 Sour Cream
 Milk
 Eggs
 Chicken Nuggets
+Fish Sticks
 Broccoli (Frozen)
 Frozen Vegetables
 Frozen Pizza
