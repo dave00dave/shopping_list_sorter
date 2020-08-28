@@ -10,12 +10,16 @@ import csv
 from guizero import App, Box, Text, TextBox, PushButton
 
 class item:
-    def __init__(self, box, row, col, label, def_val):
-        self.quant = def_val
-        self.text = Text(box, grid=[col+0, row], text=label, align="right")
+    def __init__(self, item_no, label):
+        self.item_no = item_no
+        self.quant = 0
+        self.disp_text = label
+
+    def add_to_screen(self, box, row, col):
+        self.text = Text(box, grid=[col+0, row], text=self.disp_text, align="right")
         self.plus = PushButton(box, grid=[col+3, row], text="+",
                                command=self.add_1, align="left")
-        self.val = TextBox(box, grid=[col+2, row], text=str(def_val), width=2,
+        self.val = TextBox(box, grid=[col+2, row], text=str(self.quant), width=2,
                            align="left")
         self.minus = PushButton(box, grid=[col+1, row], text="-",
                                 command=self.sub_1, align="left")
@@ -119,6 +123,7 @@ def ask_clear_list():
         clear_list()
 
 def load_store(store):
+    global num_pages, page_no
     ret_val = dict()
     if store == 'ask':
         load_file = app.select_file(title="Select Store", folder=".",
@@ -141,15 +146,42 @@ def load_store(store):
         c = 0
         c_cnt = 0
         sorted_items = sorted(items)
+        ino = 1
+        added = 0
         for i in sorted_items:
-            ret_val.update({i: item(content_box, r, c, i, 0)})
+            ret_val.update({i: item(ino, i)})
+            ino += 1
+            ret_val[i].add_to_screen(content_boxes[page_no], r, c)
             r += 1
             c_cnt += 1
-            if np.mod(c_cnt, 20) == 0:
+            if np.mod(c_cnt, column_limit) == 0:
                 c += 4
                 c_cnt = 0
                 r = 0
+            added += 1
+            if added >= page_limit:
+                content_boxes[page_no].visible = False
+                r = 0
+                c = 0
+                c_cnt = 0
+                added = 0
+                content_boxes.append(Box(app, align="top", layout="grid",
+                                         width="fill", border=True))
+                page_no += 1
     return items, ret_val
+
+def page_change(dir):
+    global page_no
+    if dir > 0 and page_no < len(content_boxes):
+        content_boxes[page_no].visible = False
+        page_no += 1
+        content_boxes[page_no].visible = True
+    elif dir < 0 and page_no >= 1:  # backwards
+        content_boxes[page_no].visible = False
+        page_no -= 1
+        content_boxes[page_no].visible = True
+
+
 
 def load_store_clear():
     global g_items, item_d
@@ -158,13 +190,9 @@ def load_store_clear():
     g_items, item_d = load_store('ask')
     clear_list()
 
-def page_back():
-    a=1
-
-def page_forward():
-    a=1
-
-
+page_limit = 100
+column_limit = 20
+last_item = 0
 app = App(title="Grocery List Sorter", height=1200, width=1440)
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
@@ -172,37 +200,19 @@ PushButton(buttons_box, text="Save List", command=save_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
 PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="right")
-PushButton(buttons_box, text="Next", command=page_forward, align="right")
-PushButton(buttons_box, text="Prev", command=page_back, align="right")
+PushButton(buttons_box, text="Next", command=page_change, args = [1], align="right")
+PushButton(buttons_box, text="Prev", command=page_change, args = [-1], align="right")
 
 list_box = Box(app, height="fill", align="right", border=True)
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
                        width=30, align="left", text="")
 
-content_box = Box(app, align="top", layout="grid", width="fill", border=True)
-
-# items = ['Fruit',
-#          'Lettuce',
-#          'Carrots',
-#          'Bagels',
-#          'Bread',
-#          'Buns',
-#          'Raisins',
-#          'Crackers',
-#          'Graham Crackers',
-#          'Tortilla Chips',
-#          'Mild Salsa',
-#          'Medium Salsa',
-#          'Hummus',
-#          'Cheese Sticks',
-#          'Pretzels',
-#          'Popcorn',
-#          'Flour',
-#          'Sugar',
-#          'Brown Sugar',
-#          'Milk',
-#          'Frozen Pizza']
+content_boxes = []
+content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=True))
+page_no = 0
+# content_box = Box(app, align="top", layout="grid", width="fill", border=True)
 
 default_store = 'Lawrence_Aldi.csv'
 g_items, item_d = load_store(default_store)
+# page_change(1)
 app.display()
