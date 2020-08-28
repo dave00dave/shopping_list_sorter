@@ -8,10 +8,10 @@ Created on Sun May 24 20:17:24 2020
 import numpy as np
 import csv
 from guizero import App, Box, Text, TextBox, PushButton
-from tkinter import Scrollbar
 
 class item:
     def __init__(self, box, row, col, label, def_val):
+        self.quant = def_val
         self.text = Text(box, grid=[col+0, row], text=label, align="right")
         self.plus = PushButton(box, grid=[col+3, row], text="+",
                                command=self.add_1, align="left")
@@ -20,15 +20,16 @@ class item:
         self.minus = PushButton(box, grid=[col+1, row], text="-",
                                 command=self.sub_1, align="left")
     def add_1(self):
-        val = int(self.val.value)
-        self.val.value = str(val+1)
+        self.quant += 1
+        self.val.value = str(self.quant)
         update_list()
+
     def sub_1(self):
-        val = int(self.val.value)
-        if val - 1 >= 0:
-            self.val.value = str(val-1)
+        if self.quant - 1 >= 0:
+            self.qaunt -= 1
         else:
-            self.val.value = 0
+            self.quant = 0
+        self.val.value = self.quant
         update_list()
 
 def update_list():
@@ -55,10 +56,10 @@ def update_list():
     tmp_list = []
     d_str = ""
     for i in g_items:
-        if int(item_d[i].val.value) > 0:
-            if int(item_d[i].val.value) > 1:
-                tmp_list.append(str(i + ' (' + item_d[i].val.value + ')'))
-                d_str += str(i + ' (' + item_d[i].val.value + ')\n')
+        if item_d[i].quant > 0:
+            if item_d[i].quant > 1:
+                tmp_list.append(str(i + ' (' + str(item_d[i].quant) + ')'))
+                d_str += str(i + ' (' + str(item_d[i].quant) + ')\n')
             else:
                 tmp_list.append(i)
                 d_str += str(i + "\n")
@@ -109,7 +110,7 @@ def load_list():
 
 def clear_list():
     for n in item_d.values():
-        n.val.value = 0
+        n.quant = 0
     list_display.value = ''
     update_list()
 
