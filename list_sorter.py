@@ -72,33 +72,34 @@ def update_list():
 def save_list():
     update_list()
     save_name = app.question("Save to File", "Enter Name to Save List As")
-    try:
-        tmp = save_name.split('.')
-        if tmp[-1] != 'csv':
-            filename = tmp[0] + '.csv'
-        else:
-            filename = save_name
-    except:
-        filename = save_name + '.csv'
-        pass
-    if os.path.exists(filename):
-        choice = app.yesno("File Exists", "Do you want to overwrite the saved list?")
-    else:
-        choice = True
-    if choice:
-        str_list = []
-        tmp = ''
-        for i in range(0, len(list_display.value)):
-            if list_display.value[i] != '\n':
-                tmp += list_display.value[i]
+    if save_name:
+        try:
+            tmp = save_name.split('.')
+            if tmp[-1] != 'csv':
+                filename = tmp[0] + '.csv'
             else:
-                if tmp:
-                    str_list.append(tmp)
-                tmp = ''
-        with open(filename, mode='w') as write_file:
-            file_writer = csv.writer(write_file, delimiter=',')
-            for i in str_list:
-                file_writer.writerow([i])
+                filename = save_name
+        except:
+            filename = save_name + '.csv'
+            pass
+        if os.path.exists(filename):
+            choice = app.yesno("File Exists", "Do you want to overwrite the saved list?")
+        else:
+            choice = True
+        if choice:
+            str_list = []
+            tmp = ''
+            for i in range(0, len(list_display.value)):
+                if list_display.value[i] != '\n':
+                    tmp += list_display.value[i]
+                else:
+                    if tmp:
+                        str_list.append(tmp)
+                    tmp = ''
+            with open(filename, mode='w') as write_file:
+                file_writer = csv.writer(write_file, delimiter=',')
+                for i in str_list:
+                    file_writer.writerow([i])
 
 def load_list():
     load_file = app.select_file(title="Select Saved List", folder=".",
