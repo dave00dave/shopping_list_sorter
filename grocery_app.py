@@ -207,10 +207,10 @@ app = App(title="Grocery List Sorter", height=1200, width=950)
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
+PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
 PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
-PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="right")
-PushButton(buttons_box, text="Next", command=page_change, args = [1], align="right")
-PushButton(buttons_box, text="Prev", command=page_change, args = [-1], align="right")
+PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
+PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
 list_box = Box(app, height="fill", align="right", border=True)
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
@@ -222,5 +222,6 @@ page_no = 0
 
 default_store = 'Lawrence_Aldi.csv'
 g_items, item_d = load_store(default_store)
-# page_change(1)
+while page_no > 0:
+    page_change(-1)
 app.display()
