@@ -37,7 +37,6 @@ class item:
         update_list()
 
 def update_list():
-    global list_in_order
     disp_list = list_display.value.splitlines()
     disp_list = [x.replace('\t', '') for x in disp_list]
     disp_list = [x.replace('\t', '') for x in list_display.value.splitlines()]
@@ -81,9 +80,18 @@ def save_list():
     except:
         filename = save_name + '.csv'
         pass
+    str_list = []
+    tmp = ''
+    for i in range(0, len(list_display.value)):
+        if list_display.value[i] != '\n':
+            tmp += list_display.value[i]
+        else:
+            if tmp:
+                str_list.append(tmp)
+            tmp = ''
     with open(filename, mode='w') as write_file:
-        file_writer = csv.writer(write_file, delimiter='v')
-        for i in list_in_order:
+        file_writer = csv.writer(write_file, delimiter=',')
+        for i in str_list:
             file_writer.writerow([i])
 
 def load_list():
