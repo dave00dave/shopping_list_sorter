@@ -171,7 +171,7 @@ def load_store(store):
                 c_cnt = 0
                 added = 0
                 content_boxes.append(Box(app, align="top", layout="grid",
-                                         width="fill", border=True))
+                                         width="fill", border=False))
                 page_no += 1
     return items, ret_val
 
@@ -211,7 +211,7 @@ list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
                        width=30, align="left", text="")
 
 content_boxes = []
-content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=True))
+content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=False))
 page_no = 0
 
 default_store = 'Lawrence_Aldi.csv'
