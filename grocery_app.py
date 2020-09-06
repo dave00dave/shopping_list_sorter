@@ -104,7 +104,7 @@ def load_list():
             csv_reader = csv.reader(csv_file, delimiter=',')
             for row in csv_reader:
                 tmp = row[0]
-                if tmp[-1] == ')':
+                if tmp[-1] == ')' and (tmp[-2].isnumeric()):
                     tmp_num = int(tmp[-2])
                     loaded_d.update({tmp[0:-4]: tmp_num})
                 else:
@@ -113,7 +113,7 @@ def load_list():
         for k, v in loaded_d.items():
             for i, n in item_d.items():
                 if k == i:
-                    n.val.value = v
+                    n.quant = v
                     break
         update_list()
 
