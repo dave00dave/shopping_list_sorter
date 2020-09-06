@@ -41,8 +41,6 @@ def update_list():
     disp_list = list_display.value.splitlines()
     disp_list = [x.replace('\t', '') for x in disp_list]
     disp_list = [x.replace('\t', '') for x in list_display.value.splitlines()]
-    # disp_list = [x.replace("'", '') for x in disp_list]
-    # print(list(set(disp_list) - set(g_items)))
     custom_items = np.setdiff1d(disp_list, g_items)
     custom_items = np.delete(custom_items, 0)
 
@@ -52,7 +50,6 @@ def update_list():
         if i[-2].isnumeric():
             x = [j for j in range(len(i)) if i.startswith('(', j)]
             if x:
-                print(i, x)
                 dc.append(i[:(x[-1]-1)])
                 if i[:(x[-1]-1)] in g_items:
                     custom_items = custom_items[custom_items != i]
@@ -181,8 +178,6 @@ def page_change(dir):
         page_no -= 1
         content_boxes[page_no].visible = True
 
-
-
 def load_store_clear():
     global g_items, item_d
     item_d.clear()
@@ -210,7 +205,6 @@ list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
 content_boxes = []
 content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=True))
 page_no = 0
-# content_box = Box(app, align="top", layout="grid", width="fill", border=True)
 
 default_store = 'Lawrence_Aldi.csv'
 g_items, item_d = load_store(default_store)
