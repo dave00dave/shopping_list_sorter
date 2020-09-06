@@ -3,7 +3,8 @@
 """
 Created on Sun May 24 20:17:24 2020
 
-@author: daveandmarinda
+Copyright 2020 David S. Ochs. All Rights Reserved
+
 """
 import numpy as np
 import csv
