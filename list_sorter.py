@@ -237,4 +237,12 @@ g_items, item_d = load_store(default_store)
 while page_no > 0:
     page_change(-1)
 app.when_closed = closing_action
+
+# Set up email service
+if os.path.exists('credentials.txt'):
+    with open('credentials.txt', 'r') as f:
+        email = f.readline()
+        password = f.readline()
+    email = email[:-1]
+    password = password[:-1]
 app.display()
