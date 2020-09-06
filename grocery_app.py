@@ -199,6 +199,11 @@ def load_store_clear():
     g_items, item_d = load_store('ask')
     clear_list()
 
+def closing_action():
+    if app.yesno("Close", "Do you want to save the list before closing?"):
+        save_list()
+    app.destroy()
+
 page_limit = 60
 column_limit = 20
 last_item = 0
@@ -224,4 +229,5 @@ default_store = 'Lawrence_Aldi.csv'
 g_items, item_d = load_store(default_store)
 while page_no > 0:
     page_change(-1)
+app.when_closed = closing_action
 app.display()
