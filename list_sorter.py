@@ -20,12 +20,18 @@ class item:
 
     def add_to_screen(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text, align="right")
+        self.text.bg = 'white'
         self.plus = PushButton(box, grid=[col+3, row], text="+",
-                               command=self.add_1, align="left")
+                               command=self.add_1, align="left", width=pm_width,
+                               padx=0, pady=6)
+        self.plus.bg = 'white'
         self.val = TextBox(box, grid=[col+2, row], text=str(self.quant), width=2,
                            align="left")
+        self.val.bg = 'white'
         self.minus = PushButton(box, grid=[col+1, row], text="-",
-                                command=self.sub_1, align="left")
+                                command=self.sub_1, align="left", width=pm_width,
+                                padx=0, pady=6)
+        self.minus.bg = 'white'
     def add_1(self):
         self.quant += 1
         self.val.value = str(self.quant)
@@ -186,6 +192,7 @@ def load_store(store):
                 content_boxes.append(Box(app, align="top", layout="grid",
                                          width="fill", border=False))
                 page_no += 1
+                content_boxes[page_no].tk.configure(background='white')
     return items, ret_val
 
 def page_change(dir):
@@ -228,7 +235,9 @@ page_limit = 60
 column_limit = 20
 last_item = 0
 save_name_old = ''
-app = App(title="Grocery List Sorter", height=1200, width=950)
+pm_width = 1
+app = App(title="Grocery List Sorter", height=1200, width=950,
+          bgcolor='white')
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
@@ -244,6 +253,7 @@ list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
 
 content_boxes = []
 content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=False))
+content_boxes[0].tk.configure(background='white')
 page_no = 0
 
 default_store = 'stores/Lawrence_Aldi.csv'
