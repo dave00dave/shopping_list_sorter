@@ -232,7 +232,7 @@ content_boxes = []
 content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=False))
 page_no = 0
 
-default_store = 'Lawrence_Aldi.csv'
+default_store = 'stores/Lawrence_Aldi.csv'
 g_items, item_d = load_store(default_store)
 while page_no > 0:
     page_change(-1)
