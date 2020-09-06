@@ -10,6 +10,7 @@ import numpy as np
 import csv
 from guizero import App, Box, Text, TextBox, PushButton
 import os
+import smtplib, ssl
 
 class item:
     def __init__(self, item_no, label):
@@ -210,6 +211,19 @@ def closing_action():
         save_list()
     app.destroy()
 
+def email_list():
+    receiver_email = app.question("Enter Email", "Enter Email Address")
+    if receiver_email:
+        port = 465  # For SSL
+        smtp_server = "smtp.gmail.com"
+        subject = "Your Sorted Shopping list\n\n"
+        message = subject + list_display.value
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message)
+
+
 page_limit = 60
 column_limit = 20
 last_item = 0
@@ -217,10 +231,10 @@ save_name_old = ''
 app = App(title="Grocery List Sorter", height=1200, width=950)
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
+PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
 PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
-PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
@@ -241,8 +255,11 @@ app.when_closed = closing_action
 # Set up email service
 if os.path.exists('credentials.txt'):
     with open('credentials.txt', 'r') as f:
-        email = f.readline()
+        sender_email = f.readline()
         password = f.readline()
-    email = email[:-1]
+    sender_email = sender_email[:-1]
     password = password[:-1]
+
+    # Add a send email button
+    PushButton(buttons_box, text="Email List", command=email_list, align="left")
 app.display()
