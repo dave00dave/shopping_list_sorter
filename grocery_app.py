@@ -185,10 +185,10 @@ def load_store_clear():
     g_items, item_d = load_store('ask')
     clear_list()
 
-page_limit = 100
+page_limit = 60
 column_limit = 20
 last_item = 0
-app = App(title="Grocery List Sorter", height=1200, width=1440)
+app = App(title="Grocery List Sorter", height=1200, width=950)
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
