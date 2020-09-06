@@ -70,8 +70,10 @@ def update_list():
 
 
 def save_list():
+    global save_name_old
     update_list()
-    save_name = app.question("Save to File", "Enter Name to Save List As")
+    save_name = app.question("Save to File", "Enter Name to Save List As",
+                             initial_value = save_name_old)
     if save_name:
         try:
             tmp = save_name.split('.')
@@ -100,6 +102,7 @@ def save_list():
                 file_writer = csv.writer(write_file, delimiter=',')
                 for i in str_list:
                     file_writer.writerow([i])
+        save_name_old = save_name
 
 def load_list():
     load_file = app.select_file(title="Select Saved List", folder=".",
@@ -209,6 +212,7 @@ def closing_action():
 page_limit = 60
 column_limit = 20
 last_item = 0
+save_name_old = ''
 app = App(title="Grocery List Sorter", height=1200, width=950)
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
