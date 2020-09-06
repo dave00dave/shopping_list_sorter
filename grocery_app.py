@@ -30,7 +30,7 @@ class item:
 
     def sub_1(self):
         if self.quant - 1 >= 0:
-            self.qaunt -= 1
+            self.quant -= 1
         else:
             self.quant = 0
         self.val.value = self.quant
