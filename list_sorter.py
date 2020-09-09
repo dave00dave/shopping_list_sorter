@@ -10,6 +10,8 @@ import numpy as np
 import csv
 from guizero import App, Box, Text, TextBox, PushButton
 import os
+import smtplib, ssl
+# from email.mime.text import MIMETex
 
 class item:
     def __init__(self, item_no, label):
@@ -19,12 +21,18 @@ class item:
 
     def add_to_screen(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text, align="right")
+        self.text.bg = 'white'
         self.plus = PushButton(box, grid=[col+3, row], text="+",
-                               command=self.add_1, align="left")
+                               command=self.add_1, align="left", width=pm_width,
+                               padx=0, pady=6)
+        self.plus.bg = 'white'
         self.val = TextBox(box, grid=[col+2, row], text=str(self.quant), width=2,
                            align="left")
+        self.val.bg = 'white'
         self.minus = PushButton(box, grid=[col+1, row], text="-",
-                                command=self.sub_1, align="left")
+                                command=self.sub_1, align="left", width=pm_width,
+                                padx=0, pady=6)
+        self.minus.bg = 'white'
     def add_1(self):
         self.quant += 1
         self.val.value = str(self.quant)
@@ -185,6 +193,7 @@ def load_store(store):
                 content_boxes.append(Box(app, align="top", layout="grid",
                                          width="fill", border=False))
                 page_no += 1
+                content_boxes[page_no].tk.configure(background='white')
     return items, ret_val
 
 def page_change(dir):
@@ -210,17 +219,32 @@ def closing_action():
         save_list()
     app.destroy()
 
+def email_list():
+    receiver_email = app.question("Enter Email", "Enter Email Address")
+    if receiver_email:
+        port = 465  # For SSL
+        smtp_server = "smtp.gmail.com"
+        subject = "Subject: Your Sorted Shopping List\n"
+        message = subject + list_display.value
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message)
+
+
 page_limit = 60
 column_limit = 20
 last_item = 0
 save_name_old = ''
-app = App(title="Grocery List Sorter", height=1200, width=950)
+pm_width = 1
+app = App(title="Grocery List Sorter", height=1200, width=950,
+          bgcolor='white')
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
+PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
 PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
-PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
@@ -230,6 +254,7 @@ list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
 
 content_boxes = []
 content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=False))
+content_boxes[0].tk.configure(background='white')
 page_no = 0
 
 default_store = 'stores/Lawrence_Aldi.csv'
@@ -237,4 +262,15 @@ g_items, item_d = load_store(default_store)
 while page_no > 0:
     page_change(-1)
 app.when_closed = closing_action
+
+# Set up email service
+if os.path.exists('credentials.txt'):
+    with open('credentials.txt', 'r') as f:
+        sender_email = f.readline()
+        password = f.readline()
+    sender_email = sender_email[:-1]
+    password = password[:-1]
+
+    # Add a send email button
+    PushButton(buttons_box, text="Email List", command=email_list, align="left")
 app.display()
