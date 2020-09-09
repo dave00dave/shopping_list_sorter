@@ -11,6 +11,7 @@ import csv
 from guizero import App, Box, Text, TextBox, PushButton
 import os
 import smtplib, ssl
+# from email.mime.text import MIMETex
 
 class item:
     def __init__(self, item_no, label):
@@ -223,7 +224,7 @@ def email_list():
     if receiver_email:
         port = 465  # For SSL
         smtp_server = "smtp.gmail.com"
-        subject = "Your Sorted Shopping list\n\n"
+        subject = "Subject: Your Sorted Shopping List\n"
         message = subject + list_display.value
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
