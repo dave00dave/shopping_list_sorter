@@ -127,7 +127,10 @@ def load_list():
                 tmp = row[0]
                 if tmp[-1] == ')' and (tmp[-2].isnumeric()):
                     tmp_num = int(tmp[-2])
-                    loaded_d.update({tmp[0:-4]: tmp_num})
+                    if tmp[-4] == ' ': # handle space or not in custom item
+                        loaded_d.update({tmp[0:-4]: tmp_num})
+                    else:
+                        loaded_d.update({tmp[0:-3]: tmp_num})
                 else:
                     loaded_d.update({tmp: 1})
         c_str = ''
