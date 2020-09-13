@@ -130,12 +130,16 @@ def load_list():
                     loaded_d.update({tmp[0:-4]: tmp_num})
                 else:
                     loaded_d.update({tmp: 1})
-
+        c_str = ''
         for k, v in loaded_d.items():
-            for i, n in item_d.items():
-                if k == i:
-                    n.quant = v
-                    break
+            if k in item_d:
+                item_d[k].quant = v
+            else:
+                if v > 1:
+                    c_str += str(k) + " (" + str(v) + ")" + "\n"
+                else:
+                    c_str += str(k + "\n")
+        list_display.value = c_str
         update_list()
         save_name_old = load_file
 
