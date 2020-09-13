@@ -51,7 +51,8 @@ def update_list():
     disp_list = [x.replace('\t', '') for x in disp_list]
     disp_list = [x.replace('\t', '') for x in list_display.value.splitlines()]
     custom_items = np.setdiff1d(disp_list, g_items)
-    custom_items = np.delete(custom_items, 0)
+    if custom_items[0] == '':
+        custom_items = np.delete(custom_items, 0)
 
     # find items that have (#); they h will be flagged as custom by the first check
     dc = []  # double check list
