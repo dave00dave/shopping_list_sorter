@@ -115,6 +115,7 @@ def save_list():
         save_name_old = save_name
 
 def load_list():
+    global save_name_old
     load_file = app.select_file(title="Select Saved List", folder=".",
                                 filetypes=[["CSV files", ".csv"]])
     if load_file != '':
@@ -136,6 +137,7 @@ def load_list():
                     n.quant = v
                     break
         update_list()
+        save_name_old = load_file
 
 def clear_list():
     for n in item_d.values():
