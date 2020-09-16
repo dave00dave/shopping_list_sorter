@@ -107,8 +107,7 @@ def update_list():
 def save_list():
     global save_name_old
     update_list()
-    save_name = app.question("Save to File", "Enter Name to Save List As",
-                             initial_value = save_name_old)
+    save_name = app.select_file(title = "Select File", save = True, filetypes=[["CSV files", ".csv"]])
     if save_name:
         try:
             tmp = save_name.split('.')
@@ -119,8 +118,10 @@ def save_list():
         except:
             filename = save_name + '.csv'
             pass
-        if os.path.exists(filename):
-            choice = app.yesno("File Exists", "Do you want to overwrite the saved list?")
+        # if os.path.exists(filename):
+        #     tmp_path = pathlib.Path(filename)
+        #     choice = app.yesno("File Exists",
+        #                        "Do you want to overwrite " + tmp_path.name + " ?")
         else:
             choice = True
         if choice:
