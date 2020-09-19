@@ -11,7 +11,6 @@ Broccoli (fresh)
 "Hoagies	"
 "Raisins	"
 "Dried Cranberries	"
-"Tortilla Chips	"
 Crackers (surprise!)
 Crackers (clubhouse)
 Crackers (Penguins)
@@ -22,6 +21,7 @@ Crackers (PB sandwhich)
 "Graham Crackers	"
 "Saltines	"
 Crackers (Ritz)
+"Tortilla Chips	"
 "Salsa (Mild)	"
 "Salsa (Medium)	"
 "Hummus	"
@@ -30,6 +30,10 @@ Crackers (Ritz)
 "Cheese Blocks	"
 "Sandwhich Cheese	"
 "American Cheese	"
+Cheese (Shredded Cheddar)
+Cheese (Shredded Mozz.)
+Cheese (Shredded Cojack)
+Cheese (Shredded Pizza)
 "Sandwhich Meat	"
 Biscuits (canned)
 "Flour	"
@@ -43,6 +47,8 @@ Sweetened Condensed Milk
 Evaporated Milk
 "Pudding (Chocolate)	"
 "Pudding (Vanilla)	"
+Pumpkin Puree
+Chocolate Chips
 "Gelatin	"
 "Cake Mix	"
 "Brownie Mix	"
@@ -50,24 +56,29 @@ Evaporated Milk
 "Bisquick	"
 Olive Oil
 Canola Oil
-"Spices	textbox"
+Chili Seasoning
+Cinnamon
 "Cocoa Powder	"
 "Salt	"
 "Pepper	"
+Vanilla Extract
 Worchestershire Sauce
 Steak Sauce
 BBQ Sauce
 Ketchup
 Mustard (yellow)
 Mustard (Spicy Brown)
+Mustard (Honey)
 Mayo
 Miracle Whip
 Salad Dressing
 Olives
 Ranch Mix
 Italian Dressing Mix
+Nutrigrain Bars
 Cheerios
 Chex
+Rice Krispies
 Mini Wheats
 "Syrup	"
 "Potatoes (Russet)	"
@@ -81,6 +92,7 @@ Mini Wheats
 "Napkins	"
 "TP	"
 "Paper Towels	"
+Tissues
 "Aluminum Foil	"
 Ziploc (sandwhich)
 Ziploc (freezer)
@@ -101,6 +113,7 @@ Tomato Sauce (8 oz)
 "Crushed Tomatoes	(28 oz)"
 Diced Tomatoes (14.5 oz)
 Mushrooms
+Canned Chicken
 "Rotel	"
 "Taco Seasoning	"
 "Refried Beans	"
@@ -110,6 +123,7 @@ Suddenly Salad
 "Pepperoni	"
 Mac and Cheese
 "Parmesan Cheese	"
+Elbow Macaroni
 "Spahetti	"
 "Fettucine	"
 "Penne	"
@@ -118,6 +132,9 @@ Mac and Cheese
 "Pesto	"
 "Marinara Sauce	"
 "Pasta Sauce	"
+Rice (Instant Brown)
+Rice (Instant White)
+Rice (Long Grain)
 Sausage (Italian lb.)
 Fish (lb.)
 "Beef (Ground, lb.)	"
@@ -126,12 +143,11 @@ Bacon
 Sausage (bulk)
 Hot Dogs
 Cream Cheese
-Mozz. (shredded)
-Cheddar (shredded)
-Pizza Cheese (shredded)
+Whipped Cream Cheese
 Stick Butter
 Tub Butter
 Yogurt
+Cottage Cheese
 Sour Cream
 Milk
 Eggs
