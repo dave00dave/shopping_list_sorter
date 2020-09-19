@@ -46,6 +46,15 @@ class item:
         self.val.value = self.quant
         update_list()
 
+def check_without_number(item):
+    retVal = ''
+    if item[-2].isnumeric():
+        x = [j for j in range(len(item)) if item.startswith('(', j)]
+        if x:
+            if item[:(x[-1]-1)] in g_items:
+                retVal = item[:(x[-1]-1)]
+    return retVal
+
 def update_list():
     disp_list = list_display.value.splitlines()
     disp_list = [x.replace('\t', '') for x in disp_list]
@@ -54,23 +63,39 @@ def update_list():
     if custom_items[0] == '':
         custom_items = np.delete(custom_items, 0)
 
-    # find items that have (#); they h will be flagged as custom by the first check
-    dc = []  # double check list
+    # find items that have ? at the end; they will be flagged as custom by the first check
+    # note those items that are in g_items so they can have ? added back later
+    add_q = []
     for i in custom_items:
-        if i[-2].isnumeric():
-            x = [j for j in range(len(i)) if i.startswith('(', j)]
-            if x:
-                dc.append(i[:(x[-1]-1)])
-                if i[:(x[-1]-1)] in g_items:
-                    custom_items = custom_items[custom_items != i]
+        if i[-1] == '?':
+            tmp_item = check_without_number(i[:-1])
+            if i[:-1] in g_items:
+                custom_items = custom_items[custom_items != i]
+                add_q.append(i[:-1])
+            elif tmp_item:
+                # this catches items in the store list that have
+                # more than 1 added, and a ? at the end
+                custom_items = custom_items[custom_items != i]
+                add_q.append(tmp_item)
 
+    # find items that have (#); they will be flagged as custom by the first check
+    for i in custom_items:
+        tmp_item = check_without_number(i)
+        if tmp_item:
+            custom_items = custom_items[custom_items != i] # remove this
+                                                           # item from the list
     tmp_list = []
     d_str = ""
     for i in g_items:
         if item_d[i].quant > 0:
             if item_d[i].quant > 1:
                 tmp_list.append(str(i + ' (' + str(item_d[i].quant) + ')'))
-                d_str += str(i + ' (' + str(item_d[i].quant) + ')\n')
+                if str(i) in add_q:
+                    d_str += str(i + ' (' + str(item_d[i].quant) + ')?\n')
+                else:
+                    d_str += str(i + ' (' + str(item_d[i].quant) + ')\n')
+            elif str(i) in add_q:
+                d_str += str(i) + "?\n"
             else:
                 tmp_list.append(i)
                 d_str += str(i + "\n")
