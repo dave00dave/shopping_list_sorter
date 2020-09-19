@@ -151,11 +151,14 @@ def load_list():
             for row in csv_reader:
                 tmp = row[0]
                 if tmp[-1] == ')' and (tmp[-2].isnumeric()):
-                    tmp_num = int(tmp[-2])
-                    if tmp[-4] == ' ': # handle space or not in custom item
-                        loaded_d.update({tmp[0:-4]: tmp_num})
+                    c = -2
+                    while tmp[c].isnumeric():
+                        c -=1
+                    tmp_num = int(tmp[(c+1):-1])
+                    if tmp[c-1] == ' ': # handle space or not in custom item
+                        loaded_d.update({tmp[0:c-1]: tmp_num})
                     else:
-                        loaded_d.update({tmp[0:-3]: tmp_num})
+                        loaded_d.update({tmp[0:(c)]: tmp_num})
                 else:
                     loaded_d.update({tmp: 1})
         c_str = ''
