@@ -255,7 +255,7 @@ buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 PushButton(buttons_box, text="Save List", command=save_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
-PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
+# PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
 PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
