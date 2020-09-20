@@ -223,7 +223,7 @@ def load_store(store):
                 c_cnt = 0
                 r = 0
             added += 1
-            if added >= page_limit:
+            if added >= page_limit and i != sorted_items[-1]:
                 content_boxes[page_no].visible = False
                 r = 0
                 c = 0
@@ -237,7 +237,8 @@ def load_store(store):
 
 def page_change(dir):
     global page_no
-    if dir > 0 and page_no < len(content_boxes):
+    if dir > 0 and page_no < len(content_boxes)-1:
+        print(page_no)
         content_boxes[page_no].visible = False
         page_no += 1
         content_boxes[page_no].visible = True
