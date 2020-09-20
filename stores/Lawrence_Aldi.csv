@@ -11,31 +11,31 @@ Broccoli (fresh)
 "Hoagies	"
 "Raisins	"
 "Dried Cranberries	"
-Crackers (surprise!)
-Crackers (clubhouse)
-Crackers (Penguins)
-Crackers (PB sandwhich)
-"Crackers (animal)	"
+"Crackers, Surprise!"
+"Crackers, Clubhouse"
+"Crackers, Penguins"
+"Crackers, PB Sandwich"
+"Crackers, Animal"
 "Vanilla Wafers	"
 "Cookies	"
 "Graham Crackers	"
 "Saltines	"
-Crackers (Ritz)
+"Crackers, Ritz"
 "Tortilla Chips	"
-"Salsa (Mild)	"
-"Salsa (Medium)	"
+"Salsa, Mild"
+"Salsa, Medium"
 "Hummus	"
-"Cheese Sticks	"
-"String Cheese	"
-"Cheese Blocks	"
-"Sandwhich Cheese	"
-"American Cheese	"
-Cheese (Shredded Cheddar)
-Cheese (Shredded Mozz.)
-Cheese (Shredded Cojack)
-Cheese (Shredded Pizza)
-"Sandwhich Meat	"
-Biscuits (canned)
+"Cheese, Sticks	"
+"Cheese, String	"
+"Cheese, Blocks	"
+"Cheese, Sandwich	"
+"Cheese, American Slices	"
+"Cheese, Shredded Cheddar"
+"Cheese, Shredded Mozz."
+"Cheese, Shredded Cojack"
+"Cheese, Shredded Pizza"
+"Sandwich Meat	"
+"Biscuits, Canned"
 "Flour	"
 "Sugar	"
 "Brown Sugar	"
@@ -45,30 +45,29 @@ Biscuits (canned)
 "Baking Soda	"
 Sweetened Condensed Milk
 Evaporated Milk
-"Pudding (Chocolate)	"
-"Pudding (Vanilla)	"
+"Pudding, Chocolate	"
+"Pudding, Vanilla	"
 Pumpkin Puree
 Chocolate Chips
 "Gelatin	"
 "Cake Mix	"
 "Brownie Mix	"
-"Cornbread	"
+Cornbread Mix
 "Bisquick	"
 Olive Oil
 Canola Oil
 Chili Seasoning
-Cinnamon
 "Cocoa Powder	"
 "Salt	"
-"Pepper	"
+"Pepper, Ground	"
 Vanilla Extract
 Worchestershire Sauce
 Steak Sauce
 BBQ Sauce
 Ketchup
-Mustard (yellow)
-Mustard (Spicy Brown)
-Mustard (Honey)
+"Mustard, Yellow"
+"Mustard, Spicy Brown"
+"Mustard, Honey"
 Mayo
 Miracle Whip
 Salad Dressing
@@ -81,13 +80,13 @@ Chex
 Rice Krispies
 Mini Wheats
 "Syrup	"
-"Potatoes (Russet)	"
-"Potatoes (Red)	"
-"Potatoes (Sweet)	"
+"Potatoes, Russet"
+"Potatoes, Red"
+"Potatoes, Sweet"
 "Celery	"
-"Green Peppers	"
-"Colored Peppers	"
-Tomatoes
+"Peppers, Green	"
+"Peppers, Colored"
+"Tomatoes, Fresh"
 "Diapers	"
 "Wipes	"
 "Napkins	"
@@ -95,37 +94,37 @@ Tomatoes
 "Paper Towels	"
 Tissues
 "Aluminum Foil	"
-Ziploc (sandwhich)
-Ziploc (freezer)
-Ziploc (gallon)
+"Ziploc, Sandwich"
+"Ziploc, Freezer"
+"Ziploc, Gallon"
 "Applesauce	"
-"Fruit (Canned)	"
-"Corn (Canned)	"
+"Fruit, Canned"
+"Corn, Canned"
 "Cream of Chicken Soup	"
 "Chicken Broth	"
 "Tomato Soup	"
-"Black Beans	"
-"Pinto Beans	"
-"Chili Beans	"
-"Red Beans	"
-Baked Beans
-"Tomato Paste (6 oz)	"
-Tomato Sauce (8 oz)
-"Crushed Tomatoes	(28 oz)"
-Diced Tomatoes (14.5 oz)
+"Beans, Black"
+"Beans	 Pinto"
+"Beans, Chili	"
+"Beans, Red Kidney	"
+"Beans, Baked"
+"Tomato Paste, 6 oz.	"
+"Tomato Sauce, 8 oz."
+"Crushed Tomatoes, 28 oz."
+"Diced Tomatoes, 14.5 oz."
 Mushrooms
 Canned Chicken
 "Rotel	"
 "Taco Seasoning	"
 "Refried Beans	"
 "Tortillas	"
-Suddenly Salad
+Pasta Salad
 "Pizza Crust	"
 "Pepperoni	"
 Mac and Cheese
 "Parmesan Cheese	"
 Elbow Macaroni
-"Spahetti	"
+"Spaghetti	"
 "Fettucine	"
 "Penne	"
 "Rotini	"
@@ -133,20 +132,20 @@ Elbow Macaroni
 "Pesto	"
 "Marinara Sauce	"
 "Pasta Sauce	"
-Rice (Instant Brown)
-Rice (Instant White)
-Rice (Long Grain)
-Sausage (Italian lb.)
+"Rice, Instant Brown"
+"Rice, Instant White"
+"Rice, Long Grain"
+"Sausage, Ground Italian (lb.)"
 Fish (lb.)
-"Beef (Ground, lb.)	"
-"Chicken Breasts (lb)	"
+"Beef, Ground (lb.)	"
+"Chicken Breasts (lb.)	"
 Bacon
-Sausage (bulk)
+"Sausage, Ground Bulk (lb.)"
 Hot Dogs
 Cream Cheese
 Whipped Cream Cheese
-Stick Butter
-Tub Butter
+"Butter, Stick"
+"Butter, Tub"
 Yogurt
 Cottage Cheese
 Sour Cream
@@ -154,7 +153,7 @@ Milk
 Eggs
 Chicken Nuggets
 Fish Sticks
-Broccoli (Frozen)
+"Broccoli, Frozen"
 Frozen Vegetables
 Frozen Pizza
 Meatballs
