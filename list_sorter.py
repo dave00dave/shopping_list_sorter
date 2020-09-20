@@ -290,7 +290,7 @@ PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], 
 
 list_box = Box(app, height="fill", align="right", border=True)
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
-                       width=30, align="left", text="")
+                       width=26, align="left", text="")
 list_display.text_size = text_size
 
 content_boxes = []
