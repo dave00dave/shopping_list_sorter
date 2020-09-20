@@ -164,7 +164,8 @@ def load_list():
         c_str = ''
         for k, v in loaded_d.items():
             if k in item_d:
-                item_d[k].quant = v
+                for q in range(v):
+                    item_d[k].add_1() # call add_1 so the quantities by the buttons are updated
             else:
                 if v > 1:
                     c_str += str(k) + " (" + str(v) + ")" + "\n"
