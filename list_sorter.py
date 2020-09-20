@@ -103,8 +103,24 @@ def update_list():
         d_str += str(i + "\n")
     list_display.value = d_str
 
+def write_list_to_file(filename):
+    str_list = []
+    tmp = ''
+    # format the whole list as a string to save in a csv
+    for i in range(0, len(list_display.value)):
+        if list_display.value[i] != '\n':
+            tmp += list_display.value[i]
+        else:
+            if tmp:
+                str_list.append(tmp)
+            tmp = ''
+    with open(filename, mode='w') as write_file:
+        file_writer = csv.writer(write_file, delimiter=',')
+        for i in str_list:
+            file_writer.writerow([i])
 
-def save_list():
+
+def save_list_as():
     global save_name_old
     update_list()
     save_name = app.select_file(title = "Select File", save = True, filetypes=[["CSV files", ".csv"]])
@@ -118,27 +134,16 @@ def save_list():
         except:
             filename = save_name + '.csv'
             pass
-        # if os.path.exists(filename):
-        #     tmp_path = pathlib.Path(filename)
-        #     choice = app.yesno("File Exists",
-        #                        "Do you want to overwrite " + tmp_path.name + " ?")
-        else:
-            choice = True
-        if choice:
-            str_list = []
-            tmp = ''
-            for i in range(0, len(list_display.value)):
-                if list_display.value[i] != '\n':
-                    tmp += list_display.value[i]
-                else:
-                    if tmp:
-                        str_list.append(tmp)
-                    tmp = ''
-            with open(filename, mode='w') as write_file:
-                file_writer = csv.writer(write_file, delimiter=',')
-                for i in str_list:
-                    file_writer.writerow([i])
+        write_list_to_file(filename)
         save_name_old = save_name
+
+def save_list():
+    global save_name_old
+    if save_name_old:
+        write_list_to_file(save_name_old)
+    else:
+        save_list_as()
+
 
 def load_list():
     global save_name_old
@@ -283,9 +288,10 @@ app = App(title="Grocery List Sorter", height=1200, width=920,
           bgcolor='white')
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
-PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
-PushButton(buttons_box, text="Save List", command=save_list, align="left")
+PushButton(buttons_box, text="Save", command=save_list, align="left")
+PushButton(buttons_box, text="Save As", command=save_list_as, align="left")
 PushButton(buttons_box, text="Load List", command=load_list, align="left")
+PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 # PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
 PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
