@@ -26,7 +26,7 @@ class item:
                                command=self.add_1, align="left", width=pm_width,
                                padx=0, pady=6)
         self.plus.bg = 'white'
-        self.val = TextBox(box, grid=[col+2, row], text=str(self.quant), width=2,
+        self.val = Text(box, grid=[col+2, row], text=str(self.quant), width=2,
                            align="left")
         self.val.bg = 'white'
         self.minus = PushButton(box, grid=[col+1, row], text="-",
@@ -244,7 +244,6 @@ def load_store(store):
 def page_change(dir):
     global page_no
     if dir > 0 and page_no < len(content_boxes)-1:
-        print(page_no)
         content_boxes[page_no].visible = False
         page_no += 1
         content_boxes[page_no].visible = True
