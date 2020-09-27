@@ -192,53 +192,45 @@ def ask_clear_list():
     if app.yesno("Clear", "Do you want to clear the list?"):
         clear_list()
 
-def load_store(store):
+def load_store(store_file):
     global num_pages, page_no
     ret_val = dict()
-    if store == 'ask':
-        load_file = app.select_file(title="Select Store", folder=".",
-                                    filetypes=[["CSV files", ".csv"]])
-    elif store[-4:]:
-        load_file = store
-    else:
-        app.error('Incorrect File', 'Incorrect file type selected')
 
-    if 'load_file' in locals():
-        items = []
-        with open(load_file, encoding='utf-8-sig') as csv_file:  # handle csv's saved by excel
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            for row in csv_reader:
-                items.append(row[0])
+    items = []
+    with open(store_file, encoding='utf-8-sig') as csv_file:  # handle csv's saved by excel
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            items.append(row[0])
 
-        items = [x.replace('\t', '') for x in items]
-        # TODO: handle cases where I load a store with fewer items that were previously loaded
-        r = 0
-        c = 0
-        c_cnt = 0
-        sorted_items = sorted(items)
-        ino = 1
-        added = 0
-        for i in sorted_items:
-            ret_val.update({i: item(ino, i)})
-            ino += 1
-            ret_val[i].add_to_screen(content_boxes[page_no], r, c)
-            r += 1
-            c_cnt += 1
-            if np.mod(c_cnt, column_limit) == 0:
-                c += 4
-                c_cnt = 0
-                r = 0
-            added += 1
-            if added >= page_limit and i != sorted_items[-1]:
-                content_boxes[page_no].visible = False
-                r = 0
-                c = 0
-                c_cnt = 0
-                added = 0
-                content_boxes.append(Box(app, align="top", layout="grid",
-                                         width="fill", border=False))
-                page_no += 1
-                content_boxes[page_no].tk.configure(background='white')
+    items = [x.replace('\t', '') for x in items]
+    # TODO: handle cases where I load a store with fewer items that were previously loaded
+    r = 0
+    c = 0
+    c_cnt = 0
+    sorted_items = sorted(items)
+    ino = 1
+    added = 0
+    for i in sorted_items:
+        ret_val.update({i: item(ino, i)})
+        ino += 1
+        ret_val[i].add_to_screen(content_boxes[page_no], r, c)
+        r += 1
+        c_cnt += 1
+        if np.mod(c_cnt, column_limit) == 0:
+            c += 4
+            c_cnt = 0
+            r = 0
+        added += 1
+        if added >= page_limit and i != sorted_items[-1]:
+            content_boxes[page_no].visible = False
+            r = 0
+            c = 0
+            c_cnt = 0
+            added = 0
+            content_boxes.append(Box(app, align="top", layout="grid",
+                                     width="fill", border=False))
+            page_no += 1
+            content_boxes[page_no].tk.configure(background='white')
     return items, ret_val
 
 def page_change(dir):
@@ -254,10 +246,16 @@ def page_change(dir):
 
 def load_store_clear():
     global g_items, item_d
-    item_d.clear()
-    g_items = []
-    g_items, item_d = load_store('ask')
-    clear_list()
+    load_file = app.select_file(title="Select Store", folder=".",
+                                filetypes=[["CSV files", ".csv"]])
+    if load_file:
+        if load_file[-4:]:
+            item_d.clear()
+            g_items = []
+            g_items, item_d = load_store(load_file)
+            clear_list()
+        else:
+            app.error('Incorrect File', 'Incorrect file type selected')
 
 def closing_action():
     if app.yesno("Close", "Do you want to save the list before closing?"):
