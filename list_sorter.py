@@ -144,7 +144,6 @@ def save_list():
     else:
         save_list_as()
 
-
 def load_list():
     global save_name_old
     load_file = app.select_file(title="Select Saved List", folder=".",
@@ -152,31 +151,53 @@ def load_list():
     if load_file != '':
         clear_list()
         loaded_d = dict()
+        add_q = []
         with open(load_file) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             for row in csv_reader:
-                tmp = row[0]
-                if tmp[-1] == ')' and (tmp[-2].isnumeric()):
+                q_here = False
+                if row[0][-1] == '?':
+                    if row[0][-2] == ' ':
+                        tmp = row[0][:-2]
+                    else:
+                        tmp = row[0][:-1]
+                    q_here = True  # don't append to add_q here in case of (#)
+                else:
+                    tmp = row[0]
+                if tmp[-1] == ')' and (tmp[-2].isnumeric()): # handle items that have (#) in the list
                     c = -2
                     while tmp[c].isnumeric():
                         c -=1
                     tmp_num = int(tmp[(c+1):-1])
                     if tmp[c-1] == ' ': # handle space or not in custom item
                         loaded_d.update({tmp[0:c-1]: tmp_num})
+                        if q_here:
+                            add_q.append(tmp[0:c-1])
                     else:
-                        loaded_d.update({tmp[0:(c)]: tmp_num})
+                        loaded_d.update({tmp[0:c]: tmp_num})
+                        if q_here:
+                            add_q.append(tmp[0:c])
                 else:
                     loaded_d.update({tmp: 1})
+                    if q_here:
+                        add_q.append(tmp)
         c_str = ''
+        print(add_q)
         for k, v in loaded_d.items():
             if k in item_d:
                 for q in range(v):
                     item_d[k].add_1() # call add_1 so the quantities by the buttons are updated
+                if str(k) in add_q:
+                    print(k)
+                    c_str += str(k) + "?\n"
             else:
                 if v > 1:
-                    c_str += str(k) + " (" + str(v) + ")" + "\n"
+                    c_str += str(k) + " (" + str(v) + ")"
                 else:
-                    c_str += str(k + "\n")
+                    c_str += str(k)
+                if str(k) in add_q:
+                    c_str += "?"
+                c_str += "\n"
         list_display.value = c_str
         update_list()
         save_name_old = load_file
