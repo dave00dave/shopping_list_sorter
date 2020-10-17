@@ -25,16 +25,6 @@
 "Salsa, Mild"
 "Salsa, Medium"
 "Hummus	"
-"Cheese, Sticks	"
-"Cheese, String	"
-"Cheese, Blocks	"
-"Cheese, Sandwich	"
-"Cheese, American Slices	"
-"Cheese, Shredded Cheddar"
-"Cheese, Shredded Mozz."
-"Cheese, Shredded Cojack"
-"Cheese, Shredded Pizza"
-"Sandwich Meat	"
 "Biscuits, Canned"
 "Flour	"
 "Sugar	"
@@ -62,6 +52,7 @@ Chili Seasoning
 "Salt	"
 "Pepper, Ground	"
 Vanilla Extract
+Honey
 Peanut Butter
 Grape Jelly
 Worchestershire Sauce
@@ -74,6 +65,7 @@ Ketchup
 Dill Pickle Slices
 Mayo
 Miracle Whip
+Italian Dressing
 Salad Dressing
 Olives
 Ranch Mix
@@ -101,6 +93,17 @@ Tissues
 "Ziploc, Sandwich"
 "Ziploc, Freezer"
 "Ziploc, Gallon"
+"Cheese, Sticks	"
+"Cheese, String	"
+"Cheese, Swiss Block"
+"Cheese, Variety Blocks	"
+"Cheese, Sandwich	"
+"Cheese, American Slices	"
+"Cheese, Shredded Cheddar"
+"Cheese, Shredded Mozz."
+"Cheese, Shredded Cojack"
+"Cheese, Shredded Pizza"
+"Sandwich Meat	"
 "Applesauce	"
 "Fruit, Canned"
 "Corn, Canned"
@@ -136,6 +139,7 @@ Elbow Macaroni
 "Penne	"
 "Rotini	"
 "Linguine	"
+Egg Noodles
 "Pesto	"
 "Marinara Sauce	"
 "Pasta Sauce	"
@@ -148,6 +152,7 @@ Fish (lb.)
 "Chicken Breasts (lb.)	"
 Bacon
 "Sausage, Ground Bulk (lb.)"
+"Sausage, Smoked"
 Hot Dogs
 Cream Cheese
 Whipped Cream Cheese
@@ -161,6 +166,7 @@ Eggs
 Chicken Nuggets
 Fish Sticks
 "Broccoli, Frozen"
+"Corn, Frozen"
 Frozen Vegetables
 Frozen Pizza
 Meatballs
