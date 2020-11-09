@@ -21,6 +21,7 @@
 "Graham Crackers	"
 "Saltines	"
 "Crackers, Ritz"
+Corn Chips
 "Tortilla Chips	"
 "Salsa, Mild"
 "Salsa, Medium"
@@ -56,6 +57,7 @@ Honey
 Peanut Butter
 Grape Jelly
 Worchestershire Sauce
+"Vinegar, White"
 Steak Sauce
 BBQ Sauce
 Ketchup
@@ -72,6 +74,8 @@ Ranch Mix
 Italian Dressing Mix
 Nutrigrain Bars
 "Syrup	"
+"Oats, QC"
+"Oats, OF"
 Cheerios
 Chex
 Rice Krispies
@@ -96,7 +100,7 @@ Tissues
 "Cheese, Sticks	"
 "Cheese, String	"
 "Cheese, Swiss Block"
-"Cheese, Variety Blocks	"
+"Cheese, Variety Block	"
 "Cheese, Sandwich	"
 "Cheese, American Slices	"
 "Cheese, Shredded Cheddar"
@@ -104,9 +108,11 @@ Tissues
 "Cheese, Shredded Cojack"
 "Cheese, Shredded Pizza"
 "Sandwich Meat	"
+Coffee Filters
 "Applesauce	"
 "Fruit, Canned"
 "Corn, Canned"
+"Green Beans, Canned"
 "Cream of Chicken Soup	"
 "Chicken Broth	"
 "Tomato Soup	"
@@ -161,6 +167,7 @@ Whipped Cream Cheese
 Yogurt
 Cottage Cheese
 Sour Cream
+Half and Half
 Milk
 Eggs
 Chicken Nuggets
