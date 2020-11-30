@@ -182,13 +182,11 @@ def load_list():
                     if q_here:
                         add_q.append(tmp)
         c_str = ''
-        print(add_q)
         for k, v in loaded_d.items():
             if k in item_d:
                 for q in range(v):
                     item_d[k].add_1() # call add_1 so the quantities by the buttons are updated
                 if str(k) in add_q:
-                    print(k)
                     c_str += str(k) + "?\n"
             else:
                 if v > 1:
