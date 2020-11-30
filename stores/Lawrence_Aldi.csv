@@ -11,11 +11,13 @@
 "Hoagies	"
 "Raisins	"
 "Dried Cranberries	"
+"Crackers, Animal"
 "Crackers, Surprise!"
 "Crackers, Clubhouse"
 "Crackers, Penguins"
 "Crackers, PB Sandwich"
-"Crackers, Animal"
+"Crackers, Oyster"
+
 "Vanilla Wafers	"
 "Cookies	"
 "Graham Crackers	"
@@ -115,6 +117,7 @@ Coffee Filters
 "Green Beans, Canned"
 "Cream of Chicken Soup	"
 "Chicken Broth	"
+Chicken Stock
 "Tomato Soup	"
 "Beans, Black"
 "Beans, Pinto"
@@ -130,10 +133,12 @@ Canned Chicken
 "Bread Crumbs, Plain"
 "Bread Crumbs, Panko"
 "Bread Crumbs, Italian"
+Chicken Stuffing
 "Rotel	"
 "Taco Seasoning	"
 "Refried Beans	"
 "Tortillas	"
+"Taco Shells, Hard"
 Pasta Salad
 "Pizza Crust	"
 "Pepperoni	"
@@ -142,6 +147,7 @@ Mac and Cheese
 Elbow Macaroni
 "Spaghetti	"
 "Fettucine	"
+Angel Hair Pasta
 "Penne	"
 "Rotini	"
 "Linguine	"
@@ -168,6 +174,7 @@ Yogurt
 Cottage Cheese
 Sour Cream
 Half and Half
+Whipping Cream
 Milk
 Eggs
 Chicken Nuggets
