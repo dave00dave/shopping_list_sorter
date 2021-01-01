@@ -13,10 +13,20 @@ import os
 import smtplib, ssl
 
 class item:
-    def __init__(self, item_no, label):
+    def __init__(self, item_no, label, custom):
         self.item_no = item_no
         self.quant = 0
         self.disp_text = label
+        self.custom_entry = custom
+        self.custom_list = []
+
+    def add_entry_button(self, box, row, col):
+        self.text = Text(box, grid=[col+0, row], text=self.disp_text,
+                    align="right", size=text_size)
+        self.text.bg = 'white'
+        self.entry = PushButton(box, grid=[col+1, row], text="Add",
+                                command=self.get_custom_entry, align="left", width=entry_width,
+                                padx=0, pady=6)
 
     def add_to_screen(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text,
@@ -33,6 +43,7 @@ class item:
                                 command=self.sub_1, align="left", width=pm_width,
                                 padx=0, pady=6)
         self.minus.bg = 'white'
+
     def add_1(self):
         self.quant += 1
         self.val.value = str(self.quant)
@@ -45,6 +56,13 @@ class item:
             self.quant = 0
         self.val.value = self.quant
         update_list()
+
+    def get_custom_entry(self):
+        cus_entry = app.question("Enter Item", "Item Name")
+        if cus_entry is not None:
+            self.quant += 1
+            self.custom_list.append(cus_entry)
+            update_list()
 
 def check_without_number(item):
     retVal = ''
@@ -230,9 +248,14 @@ def load_store(store_file):
     ino = 1
     added = 0
     for i in sorted_items:
-        ret_val.update({i: item(ino, i)})
         ino += 1
-        ret_val[i].add_to_screen(content_boxes[page_no], r, c)
+        tmp_name = i.split()
+        if tmp_name[0] == ENTRY_KEY:
+            ret_val.update({i: item(ino, tmp_name[1:], True)})
+            ret_val[i].add_entry_button(content_boxes[page_no], r, c)
+        else:
+            ret_val.update({i: item(ino, i, False)})
+            ret_val[i].add_to_screen(content_boxes[page_no], r, c)
         r += 1
         c_cnt += 1
         if np.mod(c_cnt, column_limit) == 0:
@@ -300,6 +323,8 @@ last_item = 0
 text_size = 16
 save_name_old = ''
 pm_width = 1
+entry_width = 1
+ENTRY_KEY = "ENTRY"
 app = App(title="Grocery List Sorter", height=1200, width=920,
           bgcolor='white')
 
