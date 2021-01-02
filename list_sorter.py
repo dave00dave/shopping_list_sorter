@@ -13,12 +13,12 @@ import os
 import smtplib, ssl
 
 class item:
-    def __init__(self, item_no, label, custom):
+    def __init__(self, item_no, label, entry):
         self.item_no = item_no
         self.quant = 0
         self.disp_text = label
-        self.custom_entry = custom
-        self.custom_list = []
+        self.user_entry = entry
+        self.user_list = []
 
     def add_entry_button(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text,
@@ -61,7 +61,7 @@ class item:
         cus_entry = app.question("Enter Item", "Item Name")
         if cus_entry is not None:
             self.quant += 1
-            self.custom_list.append(cus_entry)
+            self.user_list.append(cus_entry)
             update_list()
 
 def check_without_number(item):
@@ -106,17 +106,22 @@ def update_list():
     d_str = ""
     for i in g_items:
         if item_d[i].quant > 0:
-            if item_d[i].quant > 1:
-                tmp_list.append(str(i + ' (' + str(item_d[i].quant) + ')'))
-                if str(i) in add_q:
-                    d_str += str(i + ' (' + str(item_d[i].quant) + ')?\n')
-                else:
-                    d_str += str(i + ' (' + str(item_d[i].quant) + ')\n')
-            elif str(i) in add_q:
-                d_str += str(i) + "?\n"
+            print(item_d[i].user_list)
+            if item_d[i].user_entry:
+                for k in item_d[i].user_list:
+                    d_str += str(k + "\n")
             else:
-                tmp_list.append(i)
-                d_str += str(i + "\n")
+                if item_d[i].quant > 1:
+                    tmp_list.append(str(i + ' (' + str(item_d[i].quant) + ')'))
+                    if str(i) in add_q:
+                        d_str += str(i + ' (' + str(item_d[i].quant) + ')?\n')
+                    else:
+                        d_str += str(i + ' (' + str(item_d[i].quant) + ')\n')
+                elif str(i) in add_q:
+                    d_str += str(i) + "?\n"
+                else:
+                    tmp_list.append(i)
+                    d_str += str(i + "\n")
     for i in custom_items:
         d_str += str(i + "\n")
     list_display.value = d_str
