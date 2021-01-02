@@ -106,10 +106,10 @@ def update_list():
     d_str = ""
     for i in g_items:
         if item_d[i].quant > 0:
-            print(item_d[i].user_list)
             if item_d[i].user_entry:
                 for k in item_d[i].user_list:
                     d_str += str(k + "\n")
+                    custom_items = custom_items[custom_items != k] # don't consider this a custom item
             else:
                 if item_d[i].quant > 1:
                     tmp_list.append(str(i + ' (' + str(item_d[i].quant) + ')'))
