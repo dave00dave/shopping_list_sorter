@@ -19,6 +19,10 @@ class item:
         self.disp_text = label
         self.user_entry = entry
         self.user_list = []
+        self.user_del_list = []  # use a list to handle deleting custom items
+                                 # when updating the list so they're not
+                                 # treated like user-appended custom items
+                                 # and left at the end of the list
 
     def add_entry_button(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text,
@@ -71,11 +75,10 @@ class item:
         if self.quant > 0:
             cus_entry = app.question("Enter Item", "Item Name")
             if cus_entry is not None:
-                try:
-                    self.user_list.remove(cus_entry)
-                    self.quant -= 1  # assumes there was only 1 of the item in the list
+                if cus_entry in self.user_list:
+                    self.user_del_list.append(cus_entry)
                     update_list()
-                except ValueError:
+                else:
                     app.warn("Warning", "Item not found (check capitalization)")
 
 def check_without_number(item):
@@ -121,6 +124,11 @@ def update_list():
     for i in g_items:
         if item_d[i].quant > 0:
             if item_d[i].user_entry:
+                for d in item_d[i].user_del_list:
+                    item_d[i].quant -= 1
+                    item_d[i].user_list.remove(d)
+                    custom_items = custom_items[custom_items != d] # don't consider this a custom item
+                item_d[i].user_del_list.clear()
                 for k in item_d[i].user_list:
                     d_str += str(k + "\n")
                     custom_items = custom_items[custom_items != k] # don't consider this a custom item
