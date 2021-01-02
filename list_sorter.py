@@ -277,7 +277,7 @@ def load_store(store_file):
         ino += 1
         tmp_name = i.split()
         if tmp_name[0] == ENTRY_KEY:
-            ret_val.update({i: item(ino, tmp_name[1:], True)})
+            ret_val.update({i: item(ino, " ".join(tmp_name[1:]), True)})
             ret_val[i].add_entry_button(content_boxes[page_no], r, c)
         else:
             ret_val.update({i: item(ino, i, False)})
