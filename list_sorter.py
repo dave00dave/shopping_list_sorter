@@ -164,6 +164,11 @@ def write_list_to_file(filename):
         for i in str_list:
             file_writer.writerow([i])
 
+        # write the user-defined custom items to the end of the file
+        for k, v in item_d.items():
+            if k.split()[0] == ENTRY_KEY:
+                tmp = k + ":" + ",".join(v.user_list)
+                file_writer.writerow([tmp])
 
 def save_list_as():
     global save_name_old
@@ -196,6 +201,7 @@ def load_list():
     if load_file != '':
         clear_list()
         loaded_d = dict()
+        cus_entry_d = dict()
         add_q = []
         with open(load_file) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -209,23 +215,37 @@ def load_list():
                     q_here = True  # don't append to add_q here in case of (#)
                 else:
                     tmp = row[0]
-                if tmp[-1] == ')' and (tmp[-2].isnumeric()): # handle items that have (#) in the list
-                    c = -2
-                    while tmp[c].isnumeric():
-                        c -=1
-                    tmp_num = int(tmp[(c+1):-1])
-                    if tmp[c-1] == ' ': # handle space or not in custom item
-                        loaded_d.update({tmp[0:c-1]: tmp_num})
-                        if q_here:
-                            add_q.append(tmp[0:c-1])
-                    else:
-                        loaded_d.update({tmp[0:c]: tmp_num})
-                        if q_here:
-                            add_q.append(tmp[0:c])
+                if tmp.split()[0] == ENTRY_KEY:
+                    # handle the special section of the saved list that contains
+                    # user-specified items that are sorted (eg. spices)
+                    kv = tmp.split(":")
+                    k = kv[0]
+                    cus_items = kv[-1].split(',')
+                    for cus_en in cus_items:
+                        if cus_en != '':
+                            cus_entry_d.update({cus_en: k})
                 else:
-                    loaded_d.update({tmp: 1})
-                    if q_here:
-                        add_q.append(tmp)
+                    if tmp[-1] == ')' and (tmp[-2].isnumeric()): # handle items that have (#) in the list
+                        c = -2
+                        while tmp[c].isnumeric():
+                            c -=1
+                        tmp_num = int(tmp[(c+1):-1])
+                        if tmp[c-1] == ' ': # handle space or not in custom item
+                            loaded_d.update({tmp[0:c-1]: tmp_num})
+                            if q_here:
+                                add_q.append(tmp[0:c-1])
+                        else:
+                            loaded_d.update({tmp[0:c]: tmp_num})
+                            if q_here:
+                                add_q.append(tmp[0:c])
+                    else:
+                        loaded_d.update({tmp: 1})
+                        if q_here:
+                            add_q.append(tmp)
+        for k,v in cus_entry_d.items():
+            item_d[v].quant += 1
+            item_d[v].user_list.append(k)
+            del loaded_d[k]
         c_str = ''
         for k, v in loaded_d.items():
             if k in item_d:
