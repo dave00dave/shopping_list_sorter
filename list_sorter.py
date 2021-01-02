@@ -248,7 +248,6 @@ def load_list():
 def clear_list():
     for n in item_d.values():
         n.quant = 0
-        n.val.value = "0"
     list_display.value = ''
     update_list()
 
