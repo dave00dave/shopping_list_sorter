@@ -24,9 +24,12 @@ class item:
         self.text = Text(box, grid=[col+0, row], text=self.disp_text,
                     align="right", size=text_size)
         self.text.bg = 'white'
-        self.entry = PushButton(box, grid=[col+1, row], text="Add",
-                                command=self.get_custom_entry, align="left", width=entry_width,
-                                padx=0, pady=6)
+        self.entry = PushButton(box, grid=[col+1, row], text="Del",
+                                command=self.remove_custom_entry, align="left",
+                                width=entry_width, padx=0, pady=6)
+        self.entry = PushButton(box, grid=[col+3, row], text="Add",
+                                command=self.get_custom_entry, align="left",
+                                width=entry_width, padx=0, pady=6)
 
     def add_to_screen(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text,
@@ -63,6 +66,17 @@ class item:
             self.quant += 1
             self.user_list.append(cus_entry)
             update_list()
+
+    def remove_custom_entry(self):
+        if self.quant > 0:
+            cus_entry = app.question("Enter Item", "Item Name")
+            if cus_entry is not None:
+                try:
+                    self.user_list.remove(cus_entry)
+                    self.quant -= 1  # assumes there was only 1 of the item in the list
+                    update_list()
+                except ValueError:
+                    app.warn("Warning", "Item not found (check capitalization)")
 
 def check_without_number(item):
     retVal = ''
