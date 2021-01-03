@@ -11,6 +11,7 @@ import csv
 from guizero import App, Box, Text, TextBox, PushButton
 import os
 import smtplib, ssl
+import pickle
 
 class item:
     def __init__(self, label, entry):
@@ -79,6 +80,29 @@ class item:
                     update_list()
                 else:
                     app.warn("Warning", "Item not found (check capitalization)")
+
+def save_cfg_item(cfg_item, value):
+    if os.path.exists(CFG_FILENAME):
+        with open(CFG_FILENAME, 'rb') as infile:
+            cfg = pickle.load(infile)
+        if cfg_item in cfg.keys():
+            cfg[cfg_item] = value
+        else:
+            cfg.update({cfg_item: value})
+    else:
+        cfg = dict()
+        cfg.update({cfg_item: value})
+    with open(CFG_FILENAME, 'wb') as outfile:
+        pickle.dump(cfg, outfile, pickle.HIGHEST_PROTOCOL)
+
+def load_cfg_item(cfg_item):
+    retval = None
+    if os.path.exists(CFG_FILENAME):
+        with open(CFG_FILENAME, 'rb') as infile:
+            cfg = pickle.load(infile)
+        if cfg_item in cfg.keys():
+            retval = cfg[cfg_item]
+    return retval
 
 def check_without_number(item):
     retVal = ''
@@ -185,18 +209,23 @@ def save_list_as():
             pass
         write_list_to_file(filename)
         save_name_old = save_name
+        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
 
 def save_list():
     global save_name_old
     if save_name_old:
         write_list_to_file(save_name_old)
+        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
     else:
         save_list_as()
 
-def load_list():
-    global save_name_old
-    load_file = app.select_file(title="Select Saved List", folder=".",
+def load_list_ask():
+    lf = app.select_file(title="Select Saved List", folder=".",
                                 filetypes=[["CSV files", ".csv"]])
+    load_list(lf)
+
+def load_list(load_file):
+    global save_name_old
     if load_file != '':
         clear_list()
         loaded_d = dict()
@@ -263,6 +292,7 @@ def load_list():
         list_display.value = c_str
         update_list()
         save_name_old = load_file
+        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
 
 def clear_list():
     for n in item_d.values():
@@ -369,13 +399,15 @@ save_name_old = ''
 pm_width = 1
 entry_width = 1
 ENTRY_KEY = "ENTRY"
+AUTOLOAD_CFG_KEY = "AUTOLOAD"
+CFG_FILENAME = ".cfg.pkl"
 app = App(title="Grocery List Sorter", height=1200, width=920,
           bgcolor='white')
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save", command=save_list, align="left")
 PushButton(buttons_box, text="Save As", command=save_list_as, align="left")
-PushButton(buttons_box, text="Load List", command=load_list, align="left")
+PushButton(buttons_box, text="Load List", command=load_list_ask, align="left")
 PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 # PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
 PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
@@ -397,6 +429,10 @@ while page_no > 0:
     page_change(-1)
 app.when_closed = closing_action
 
+auto_load = load_cfg_item(AUTOLOAD_CFG_KEY)
+if auto_load is not None:
+    load_list(auto_load)
+    
 # Set up email service
 if os.path.exists('credentials.txt'):
     with open('credentials.txt', 'r') as f:
