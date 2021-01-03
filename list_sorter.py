@@ -165,7 +165,7 @@ def write_list_to_file(filename):
 
         # write the user-defined custom items to the end of the file
         for k, v in item_d.items():
-            if k.split()[0] == ENTRY_KEY:
+            if k.split()[-1] == ENTRY_KEY:
                 tmp = k + ":" + ",".join(v.user_list)
                 file_writer.writerow([tmp])
 
@@ -214,7 +214,7 @@ def load_list():
                     q_here = True  # don't append to add_q here in case of (#)
                 else:
                     tmp = row[0]
-                if tmp.split()[0] == ENTRY_KEY:
+                if ENTRY_KEY in tmp.split(":")[0]:
                     # handle the special section of the saved list that contains
                     # user-specified items that are sorted (eg. spices)
                     kv = tmp.split(":")
@@ -294,8 +294,8 @@ def load_store(store_file):
     added = 0
     for i in sorted_items:
         tmp_name = i.split()
-        if tmp_name[0] == ENTRY_KEY:
-            ret_val.update({i: item(" ".join(tmp_name[1:]), True)})
+        if tmp_name[-1] == ENTRY_KEY:
+            ret_val.update({i: item(" ".join(tmp_name[:-1]), True)})
             ret_val[i].add_entry_button(content_boxes[page_no], r, c)
         else:
             ret_val.update({i: item(i, False)})
