@@ -12,6 +12,7 @@ from guizero import App, Box, Text, TextBox, PushButton
 import os
 import smtplib, ssl
 import pickle
+from pathlib import Path
 
 class item:
     def __init__(self, label, entry):
@@ -210,12 +211,16 @@ def save_list_as():
         write_list_to_file(filename)
         save_name_old = save_name
         save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
+        dispname = Path(save_name_old).resolve().stem
+        title_box.value = dispname
 
 def save_list():
     global save_name_old
     if save_name_old:
         write_list_to_file(save_name_old)
         save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
+        dispname = Path(save_name_old).resolve().stem
+        title_box.value = dispname
     else:
         save_list_as()
 
@@ -293,6 +298,8 @@ def load_list(load_file):
         update_list()
         save_name_old = load_file
         save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
+        dispname = Path(save_name_old).resolve().stem
+        title_box.value = dispname
 
 def clear_list():
     for n in item_d.values():
@@ -413,7 +420,12 @@ PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left
 PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
+title_box = Box(app, height="10", align="top", border=False)
 list_box = Box(app, height="fill", align="right", border=True)
+# self.text = Text(box, grid=[col+0, row], text=self.disp_text,
+            # align="right", size=text_size)
+title_box = Text(title_box, align="left", text="")
+title_box.text_size = text_size
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
                        width=26, align="left", text="")
 list_display.text_size = text_size
@@ -432,7 +444,7 @@ app.when_closed = closing_action
 auto_load = load_cfg_item(AUTOLOAD_CFG_KEY)
 if auto_load is not None:
     load_list(auto_load)
-    
+
 # Set up email service
 if os.path.exists('credentials.txt'):
     with open('credentials.txt', 'r') as f:
