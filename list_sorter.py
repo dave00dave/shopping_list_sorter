@@ -13,8 +13,7 @@ import os
 import smtplib, ssl
 
 class item:
-    def __init__(self, item_no, label, entry):
-        self.item_no = item_no
+    def __init__(self, label, entry):
         self.quant = 0
         self.disp_text = label
         self.user_entry = entry
@@ -292,16 +291,14 @@ def load_store(store_file):
     c = 0
     c_cnt = 0
     sorted_items = sorted(items)
-    ino = 1
     added = 0
     for i in sorted_items:
-        ino += 1
         tmp_name = i.split()
         if tmp_name[0] == ENTRY_KEY:
-            ret_val.update({i: item(ino, " ".join(tmp_name[1:]), True)})
+            ret_val.update({i: item(" ".join(tmp_name[1:]), True)})
             ret_val[i].add_entry_button(content_boxes[page_no], r, c)
         else:
-            ret_val.update({i: item(ino, i, False)})
+            ret_val.update({i: item(i, False)})
             ret_val[i].add_to_screen(content_boxes[page_no], r, c)
         r += 1
         c_cnt += 1
