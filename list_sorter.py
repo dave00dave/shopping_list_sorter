@@ -122,13 +122,20 @@ def update_list():
     if custom_items[0] == '':
         custom_items = np.delete(custom_items, 0)
 
+    # create a list of the user-specific items that have been added so we can
+    # check for ?'s against it
+    tmp_l = [x for x in item_d if 'ENTRY' in x]
+    user_entry_list = []
+    for i in tmp_l:
+        user_entry_list.extend(item_d[i].user_list)
+
     # find items that have ? at the end; they will be flagged as custom by the first check
     # note those items that are in g_items so they can have ? added back later
     add_q = []
     for i in custom_items:
         if i[-1] == '?':
             tmp_item = check_without_number(i[:-1])
-            if i[:-1] in g_items:
+            if (i[:-1] in g_items) or (i[:-1] in user_entry_list):
                 custom_items = custom_items[custom_items != i]
                 add_q.append(i[:-1])
             elif tmp_item:
@@ -154,7 +161,10 @@ def update_list():
                     custom_items = custom_items[custom_items != d] # don't consider this a custom item
                 item_d[i].user_del_list.clear()
                 for k in item_d[i].user_list:
-                    d_str += str(k + "\n")
+                    if k in add_q:
+                        d_str += str(k) + "?\n"
+                    else:
+                        d_str += str(k + "\n")
                     custom_items = custom_items[custom_items != k] # don't consider this a custom item
             else:
                 if item_d[i].quant > 1:
