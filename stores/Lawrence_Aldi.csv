@@ -27,7 +27,7 @@ Corn Chips
 "Salsa, Mild"
 "Salsa, Medium"
 "Hummus	"
-"Biscuits, Canned"
+"Pretzels, Sticks"
 "Flour	"
 "Sugar	"
 "Brown Sugar	"
@@ -80,6 +80,7 @@ Cheerios
 Chex
 Rice Krispies
 Mini Wheats
+"Veggies, Other ENTRY"
 "Potatoes, Russet"
 "Potatoes, Red"
 "Potatoes, Sweet"
@@ -109,7 +110,9 @@ Tissues
 "Cheese, Shredded Mozz."
 "Cheese, Shredded Cojack"
 "Cheese, Shredded Pizza"
+"Cheese, Other ENTRY"
 "Sandwich Meat	"
+"Biscuits, Canned"
 Coffee Filters
 "Applesauce	"
 "Fruit, Canned"
@@ -151,10 +154,12 @@ Angel Hair Pasta
 "Penne	"
 "Rotini	"
 "Linguine	"
+Lasagna Noodles
 Egg Noodles
 "Pesto	"
 "Marinara Sauce	"
 "Pasta Sauce	"
+Alfredo Sauce
 "Rice, Instant Brown"
 "Rice, Instant White"
 "Rice, Long Grain"
