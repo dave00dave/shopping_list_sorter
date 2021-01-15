@@ -314,13 +314,24 @@ def load_list(load_file):
 def clear_list():
     for n in item_d.values():
         n.quant = 0
+        if hasattr(n,'val'):
+            n.val.value = 0
         n.user_list.clear()
+        n.user_del_list = []
     list_display.value = ''
+    title_box.value = ''
     update_list()
 
 def ask_clear_list():
     if app.yesno("Clear", "Do you want to clear the list?"):
         clear_list()
+
+def new_list():
+    global save_name_old
+    if app.yesno("Close", "Do you want to save this list before starting a new list?"):
+        save_list()
+    clear_list()
+    save_name_old = None
 
 def load_store(store_file):
     global num_pages, page_no
@@ -424,6 +435,7 @@ app = App(title="Grocery List Sorter", height=1200, width=920,
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save", command=save_list, align="left")
 PushButton(buttons_box, text="Save As", command=save_list_as, align="left")
+PushButton(buttons_box, text="New List", command=new_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list_ask, align="left")
 PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
 # PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
