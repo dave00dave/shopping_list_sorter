@@ -412,7 +412,8 @@ def email_list():
         port = 465  # For SSL
         smtp_server = "smtp.gmail.com"
         subject = "Subject: Your Sorted Shopping List\n"
-        message = subject + list_display.value
+        body = title_box.value + '\n' + list_display.value
+        message = subject + body
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
             server.login(sender_email, password)
