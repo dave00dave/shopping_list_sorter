@@ -201,7 +201,7 @@ def write_list_to_file(filename):
         # write the user-defined custom items to the end of the file
         for k, v in item_d.items():
             if k.split()[-1] == ENTRY_KEY:
-                tmp = k + ":" + ",".join(v.user_list)
+                tmp = k + ":" + ".".join(v.user_list)
                 file_writer.writerow([tmp])
 
 def save_list_as():
@@ -263,7 +263,7 @@ def load_list(load_file):
                     # user-specified items that are sorted (eg. spices)
                     kv = tmp.split(":")
                     k = kv[0]
-                    cus_items = kv[-1].split(',')
+                    cus_items = kv[-1].split('.')
                     for cus_en in cus_items:
                         if cus_en != '':
                             cus_entry_d.update({cus_en: k})
