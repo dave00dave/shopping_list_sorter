@@ -241,7 +241,7 @@ def load_list_ask():
 
 def load_list(load_file):
     global save_name_old
-    if load_file != '':
+    if load_file != '' and os.path.exists(load_file):
         clear_list()
         loaded_d = dict()
         cus_entry_d = dict()
