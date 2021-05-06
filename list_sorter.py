@@ -82,6 +82,15 @@ class item:
                 else:
                     app.warn("Warning", "Item not found (check capitalization)")
 
+def update_list_display(d_str):
+    global disp_list_prev
+    list_display.value = d_str
+
+    # Save the list as displayed for comparison on the next update
+    # disp_list_prev = list_display.value.splitlines()
+    # disp_list_prev = [x.replace('\t', '') for x in disp_list_prev]
+    disp_list_prev = [x.replace('\t', '') for x in list_display.value.splitlines()]
+
 def save_cfg_item(cfg_item, value):
     if os.path.exists(CFG_FILENAME):
         with open(CFG_FILENAME, 'rb') as infile:
@@ -115,8 +124,7 @@ def check_without_number(item):
     return retVal
 
 def update_list():
-    disp_list = list_display.value.splitlines()
-    disp_list = [x.replace('\t', '') for x in disp_list]
+    global disp_list_prev
     disp_list = [x.replace('\t', '') for x in list_display.value.splitlines()]
     custom_items = np.setdiff1d(disp_list, g_items)
     if custom_items[0] == '':
@@ -128,6 +136,17 @@ def update_list():
     user_entry_list = []
     for i in tmp_l:
         user_entry_list.extend(item_d[i].user_list)
+
+    # look for items in the saved custom entry list that aren't in the displayed list
+    # Those items have been manually deleted from the displayed list; mark
+    # them to be removed from the custom item list
+    del_items = np.setdiff1d(disp_list_prev, disp_list)
+    # rmvd_cus_items = np.setdiff1d(user_entry_list, del_items)
+    for r in del_items:
+        for i in tmp_l:
+            if r in item_d[i].user_list:
+                item_d[i].user_del_list.append(r)
+
 
     # find items that have ? at the end; they will be flagged as custom by the first check
     # note those items that are in g_items so they can have ? added back later
@@ -180,7 +199,7 @@ def update_list():
                     d_str += str(i + "\n")
     for i in custom_items:
         d_str += str(i + "\n")
-    list_display.value = d_str
+    update_list_display(d_str)
 
 def write_list_to_file(filename):
     str_list = []
@@ -226,6 +245,7 @@ def save_list_as():
 
 def save_list():
     global save_name_old
+    update_list()
     if save_name_old:
         write_list_to_file(save_name_old)
         save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
@@ -304,7 +324,7 @@ def load_list(load_file):
                 if str(k) in add_q:
                     c_str += "?"
                 c_str += "\n"
-        list_display.value = c_str
+        update_list_display(c_str)
         update_list()
         save_name_old = load_file
         save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
@@ -318,7 +338,7 @@ def clear_list():
             n.val.value = 0
         n.user_list.clear()
         n.user_del_list = []
-    list_display.value = ''
+    update_list_display('')
     title_box.value = ''
     update_list()
 
@@ -460,6 +480,7 @@ page_no = 0
 
 default_store = 'stores/Lawrence_Aldi.csv'
 g_items, item_d = load_store(default_store)
+disp_list_prev = list()
 while page_no > 0:
     page_change(-1)
 app.when_closed = closing_action
