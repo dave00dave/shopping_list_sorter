@@ -137,17 +137,6 @@ def update_list():
     for i in tmp_l:
         user_entry_list.extend(item_d[i].user_list)
 
-    # look for items in the saved custom entry list that aren't in the displayed list
-    # Those items have been manually deleted from the displayed list; mark
-    # them to be removed from the custom item list
-    del_items = np.setdiff1d(disp_list_prev, disp_list)
-    # rmvd_cus_items = np.setdiff1d(user_entry_list, del_items)
-    for r in del_items:
-        for i in tmp_l:
-            if r in item_d[i].user_list:
-                item_d[i].user_del_list.append(r)
-
-
     # find items that have ? at the end; they will be flagged as custom by the first check
     # note those items that are in g_items so they can have ? added back later
     add_q = []
@@ -162,6 +151,36 @@ def update_list():
                 # more than 1 added, and a ? at the end
                 custom_items = custom_items[custom_items != i]
                 add_q.append(tmp_item)
+
+    # Find items that were in the displayed list last time, but are not now.
+    # They may have been manually deleted by the user
+    del_items = np.setdiff1d(disp_list_prev, disp_list)
+
+    # stip off (#) and ? from items that have been manually deleted so they'll be caught below
+    del_items_filt = []
+    for i in del_items:
+        if i[-1] == '?':
+            inq = i[:-1]
+        else:
+            inq = i
+        tmp_item = check_without_number(inq)
+        if tmp_item:
+            # this removes the (#) as well as the ?, if there is one
+            del_items = del_items[del_items != i]
+            del_items_filt.append(tmp_item)
+        else:
+            # this removes the ?
+            del_items_filt.append(inq)
+
+    # unmark items that were marked for deletion earlier only because they have a ? after them
+    del_items_filt = np.setdiff1d(del_items_filt, add_q)
+
+    # find any remaining items in the displayed list diff that are custom entry items
+    # and mark them for deletion
+    for r in del_items_filt:
+        for i in tmp_l:
+            if r in item_d[i].user_list:
+                item_d[i].user_del_list.append(r)
 
     # find items that have (#); they will be flagged as custom by the first check
     for i in custom_items:
@@ -186,7 +205,8 @@ def update_list():
                         d_str += str(k + "\n")
                     custom_items = custom_items[custom_items != k] # don't consider this a custom item
             else:
-                if i in del_items:
+                if i in del_items_filt:
+                    # a=1
                     while item_d[i].quant > 0:
                         item_d[i].sub_1()
                 else:
@@ -197,8 +217,13 @@ def update_list():
                         else:
                             d_str += str(i + ' (' + str(item_d[i].quant) + ')\n')
                     elif str(i) in add_q:
+                        # item quantity is 1, with a question mark
                         d_str += str(i) + "?\n"
+                    # elif i in del_items:
+                    #     while item_d[i].quant > 0:
+                    #         item_d[i].sub_1()
                     else:
+                        # item quantity is 1
                         tmp_list.append(i)
                         d_str += str(i + "\n")
     for i in custom_items:
