@@ -426,63 +426,63 @@ def email_list():
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message)
 
+if __name__ =='__main__':
+    page_limit = 40
+    column_limit = 20
+    last_item = 0
+    text_size = 16
+    save_name_old = ''
+    pm_width = 1
+    entry_width = 1
+    ENTRY_KEY = "ENTRY"
+    AUTOLOAD_CFG_KEY = "AUTOLOAD"
+    CFG_FILENAME = ".cfg.pkl"
+    app = App(title="Grocery List Sorter", height=1200, width=920,
+            bgcolor='white')
 
-page_limit = 40
-column_limit = 20
-last_item = 0
-text_size = 16
-save_name_old = ''
-pm_width = 1
-entry_width = 1
-ENTRY_KEY = "ENTRY"
-AUTOLOAD_CFG_KEY = "AUTOLOAD"
-CFG_FILENAME = ".cfg.pkl"
-app = App(title="Grocery List Sorter", height=1200, width=920,
-          bgcolor='white')
+    buttons_box = Box(app, width="fill", align="bottom", border=True)
+    PushButton(buttons_box, text="Save", command=save_list, align="left")
+    PushButton(buttons_box, text="Save As", command=save_list_as, align="left")
+    PushButton(buttons_box, text="New List", command=new_list, align="left")
+    PushButton(buttons_box, text="Load List", command=load_list_ask, align="left")
+    PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
+    # PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
+    PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
+    PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
-buttons_box = Box(app, width="fill", align="bottom", border=True)
-PushButton(buttons_box, text="Save", command=save_list, align="left")
-PushButton(buttons_box, text="Save As", command=save_list_as, align="left")
-PushButton(buttons_box, text="New List", command=new_list, align="left")
-PushButton(buttons_box, text="Load List", command=load_list_ask, align="left")
-PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
-# PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
-PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
-PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
+    title_box = Box(app, height="10", align="top", border=False)
+    list_box = Box(app, height="fill", align="right", border=True)
+    # self.text = Text(box, grid=[col+0, row], text=self.disp_text,
+                # align="right", size=text_size)
+    title_box = Text(title_box, align="left", text="")
+    title_box.text_size = text_size
+    list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
+                        width=26, align="left", text="")
+    list_display.text_size = text_size
 
-title_box = Box(app, height="10", align="top", border=False)
-list_box = Box(app, height="fill", align="right", border=True)
-# self.text = Text(box, grid=[col+0, row], text=self.disp_text,
-            # align="right", size=text_size)
-title_box = Text(title_box, align="left", text="")
-title_box.text_size = text_size
-list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
-                       width=26, align="left", text="")
-list_display.text_size = text_size
+    content_boxes = []
+    content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=False))
+    content_boxes[0].tk.configure(background='white')
+    page_no = 0
 
-content_boxes = []
-content_boxes.append(Box(app, align="top", layout="grid", width="fill", border=False))
-content_boxes[0].tk.configure(background='white')
-page_no = 0
+    default_store = 'stores/Lawrence_Aldi.csv'
+    g_items, item_d = load_store(default_store)
+    while page_no > 0:
+        page_change(-1)
+    app.when_closed = closing_action
 
-default_store = 'stores/Lawrence_Aldi.csv'
-g_items, item_d = load_store(default_store)
-while page_no > 0:
-    page_change(-1)
-app.when_closed = closing_action
+    auto_load = load_cfg_item(AUTOLOAD_CFG_KEY)
+    if auto_load is not None:
+        load_list(auto_load)
 
-auto_load = load_cfg_item(AUTOLOAD_CFG_KEY)
-if auto_load is not None:
-    load_list(auto_load)
+    # Set up email service
+    if os.path.exists('credentials.txt'):
+        with open('credentials.txt', 'r') as f:
+            sender_email = f.readline()
+            password = f.readline()
+        sender_email = sender_email[:-1]
+        password = password[:-1]
 
-# Set up email service
-if os.path.exists('credentials.txt'):
-    with open('credentials.txt', 'r') as f:
-        sender_email = f.readline()
-        password = f.readline()
-    sender_email = sender_email[:-1]
-    password = password[:-1]
-
-    # Add a send email button
-    PushButton(buttons_box, text="Email List", command=email_list, align="left")
-app.display()
+        # Add a send email button
+        PushButton(buttons_box, text="Email List", command=email_list, align="left")
+    app.display()
