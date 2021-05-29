@@ -88,9 +88,9 @@ class item:
                 else:
                     app.warn("Warning", "Item not found (check capitalization)")
 
-def save_cfg_item(cfg_item, value):
-    if os.path.exists(CFG_FILENAME):
-        with open(CFG_FILENAME, 'rb') as infile:
+def save_cfg_item(cfg_item, value, cfg_file):
+    if os.path.exists(cfg_file):
+        with open(cfg_file, 'rb') as infile:
             cfg = pickle.load(infile)
         if cfg_item in cfg.keys():
             cfg[cfg_item] = value
@@ -99,13 +99,13 @@ def save_cfg_item(cfg_item, value):
     else:
         cfg = dict()
         cfg.update({cfg_item: value})
-    with open(CFG_FILENAME, 'wb') as outfile:
+    with open(cfg_file, 'wb') as outfile:
         pickle.dump(cfg, outfile, pickle.HIGHEST_PROTOCOL)
 
-def load_cfg_item(cfg_item):
+def load_cfg_item(cfg_item, cfg_file):
     retval = None
-    if os.path.exists(CFG_FILENAME):
-        with open(CFG_FILENAME, 'rb') as infile:
+    if os.path.exists(cfg_file):
+        with open(cfg_file, 'rb') as infile:
             cfg = pickle.load(infile)
         if cfg_item in cfg.keys():
             retval = cfg[cfg_item]
@@ -227,7 +227,7 @@ def save_list_as():
             pass
         write_list_to_file(filename)
         save_name_old = save_name
-        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
+        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old, CFG_FILENAME)
         dispname = Path(save_name_old).resolve().stem
         title_box.value = dispname
 
@@ -235,7 +235,7 @@ def save_list():
     global save_name_old
     if save_name_old:
         write_list_to_file(save_name_old)
-        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
+        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old, CFG_FILENAME)
         dispname = Path(save_name_old).resolve().stem
         title_box.value = dispname
     else:
@@ -314,7 +314,7 @@ def load_list(load_file):
         list_display.value = c_str
         update_list()
         save_name_old = load_file
-        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old)
+        save_cfg_item(AUTOLOAD_CFG_KEY, save_name_old, CFG_FILENAME)
         dispname = Path(save_name_old).resolve().stem
         title_box.value = dispname
 
@@ -471,7 +471,7 @@ if __name__ =='__main__':
         page_change(-1)
     app.when_closed = closing_action
 
-    auto_load = load_cfg_item(AUTOLOAD_CFG_KEY)
+    auto_load = load_cfg_item(AUTOLOAD_CFG_KEY, CFG_FILENAME)
     if auto_load is not None:
         load_list(auto_load)
 
