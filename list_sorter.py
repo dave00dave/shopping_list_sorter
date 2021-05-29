@@ -114,7 +114,7 @@ def load_cfg_item(cfg_item):
 def check_without_number(item, store_items):
     """Remove (#) from an entry and check if the resulting string is in the store's global item list """
     retVal = ''
-    if item[-2].isnumeric():
+    if len(item) > 2 and item[-2].isnumeric():
         x = [j for j in range(len(item)) if item.startswith('(', j)]
         if x:
             if item[:(x[-1]-1)] in store_items:
