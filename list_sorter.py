@@ -111,12 +111,13 @@ def load_cfg_item(cfg_item):
             retval = cfg[cfg_item]
     return retval
 
-def check_without_number(item):
+def check_without_number(item, store_items):
+    """Remove (#) from an entry and check if the resulting string is in the store's global item list """
     retVal = ''
     if item[-2].isnumeric():
         x = [j for j in range(len(item)) if item.startswith('(', j)]
         if x:
-            if item[:(x[-1]-1)] in g_items:
+            if item[:(x[-1]-1)] in store_items:
                 retVal = item[:(x[-1]-1)]
     return retVal
 
@@ -140,7 +141,7 @@ def update_list():
     add_q = []
     for i in custom_items:
         if i[-1] == '?':
-            tmp_item = check_without_number(i[:-1])
+            tmp_item = check_without_number(i[:-1], g_items)
             if (i[:-1] in g_items) or (i[:-1] in user_entry_list):
                 custom_items = custom_items[custom_items != i]
                 add_q.append(i[:-1])
@@ -152,7 +153,7 @@ def update_list():
 
     # find items that have (#); they will be flagged as custom by the first check
     for i in custom_items:
-        tmp_item = check_without_number(i)
+        tmp_item = check_without_number(i, g_items)
         if tmp_item:
             custom_items = custom_items[custom_items != i] # remove this
                                                            # item from the list
