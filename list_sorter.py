@@ -24,6 +24,11 @@ class item:
                                  # when updating the list so they're not
                                  # treated like user-appended custom items
                                  # and left at the end of the list
+        self.val = None
+        self.text = None
+        self.entry = None
+        self.plus = None
+        self.minus = None
 
     def add_entry_button(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text,
@@ -54,7 +59,8 @@ class item:
 
     def add_1(self):
         self.quant += 1
-        self.val.value = str(self.quant)
+        if self.val:
+            self.val.value = str(self.quant)
         update_list()
 
     def sub_1(self):
