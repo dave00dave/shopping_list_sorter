@@ -437,6 +437,7 @@ if __name__ =='__main__':
     ENTRY_KEY = "ENTRY"
     AUTOLOAD_CFG_KEY = "AUTOLOAD"
     CFG_FILENAME = ".cfg.pkl"
+    EMAIL_CREDENTIALS_FNAME = 'credentials.txt'
     app = App(title="Grocery List Sorter", height=1200, width=920,
             bgcolor='white')
 
@@ -476,8 +477,8 @@ if __name__ =='__main__':
         load_list(auto_load)
 
     # Set up email service
-    if os.path.exists('credentials.txt'):
-        with open('credentials.txt', 'r') as f:
+    if os.path.exists(EMAIL_CREDENTIALS_FNAME):
+        with open(EMAIL_CREDENTIALS_FNAME, 'r') as f:
             sender_email = f.readline()
             password = f.readline()
         sender_email = sender_email[:-1]
