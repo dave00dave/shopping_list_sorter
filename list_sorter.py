@@ -13,6 +13,7 @@ import os
 import smtplib, ssl
 import pickle
 from pathlib import Path
+import webbrowser
 
 class item:
     def __init__(self, label, entry):
@@ -354,14 +355,17 @@ def new_list():
     save_name_old = None
 
 def load_store(store_file):
-    global num_pages, page_no
+    global num_pages, page_no, ad_url
     ret_val = dict()
 
     items = []
     with open(store_file, encoding='utf-8-sig') as csv_file:  # handle csv's saved by excel
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            items.append(row[0])
+            if (row[0].split('='))[0] == URL_KEY:
+                ad_url = (row[0].split('='))[-1]
+            else:
+                items.append(row[0])
 
     items = [x.replace('\t', '') for x in items]
     # TODO: handle cases where I load a store with fewer items that were previously loaded
@@ -439,6 +443,11 @@ def email_list():
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message)
 
+def launch_weekly_ad():
+    global ad_url
+    if ad_url is not None:
+        c = webbrowser.get('chrome')
+        c.open(ad_url, 2)
 
 page_limit = 40
 column_limit = 20
@@ -450,6 +459,8 @@ entry_width = 1
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
 CFG_FILENAME = ".cfg.pkl"
+URL_KEY = "ad_url" # used in store csv files to denote the url of the store's weekly add: ad_url=<url>
+ad_url = None
 app = App(title="Grocery List Sorter", height=1200, width=920,
           bgcolor='white')
 
@@ -459,6 +470,7 @@ PushButton(buttons_box, text="Save As", command=save_list_as, align="left")
 PushButton(buttons_box, text="New List", command=new_list, align="left")
 PushButton(buttons_box, text="Load List", command=load_list_ask, align="left")
 PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
+PushButton(buttons_box, text="View Ad", command=launch_weekly_ad, align="left")
 # PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
 PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
