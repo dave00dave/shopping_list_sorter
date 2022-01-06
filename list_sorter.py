@@ -456,6 +456,7 @@ text_size = 16
 save_name_old = ''
 pm_width = 1
 entry_width = 1
+pb_width = 3
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
 CFG_FILENAME = ".cfg.pkl"
@@ -465,13 +466,13 @@ app = App(title="Grocery List Sorter", height=1200, width=920,
           bgcolor='white')
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
-PushButton(buttons_box, text="Save", command=save_list, align="left")
-PushButton(buttons_box, text="Save As", command=save_list_as, align="left")
-PushButton(buttons_box, text="New List", command=new_list, align="left")
-PushButton(buttons_box, text="Load List", command=load_list_ask, align="left")
-PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left")
-PushButton(buttons_box, text="View Ad", command=launch_weekly_ad, align="left")
-# PushButton(buttons_box, text="Clear List", command=ask_clear_list, align="left")
+PushButton(buttons_box, text="Save", command=save_list, align="left", width=pb_width)
+PushButton(buttons_box, text="Save As", command=save_list_as, align="left", width=pb_width)
+PushButton(buttons_box, text="New List", command=new_list, align="left", width=pb_width)
+PushButton(buttons_box, text="Load List", command=load_list_ask, align="left", width=pb_width)
+PushButton(buttons_box, text="Load Store", command=load_store_clear, align="left", width=pb_width)
+PushButton(buttons_box, text="View Ad", command=launch_weekly_ad, align="left", width=pb_width)
+
 PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align="right")
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
@@ -510,5 +511,5 @@ if os.path.exists('credentials.txt'):
     password = password[:-1]
 
     # Add a send email button
-    PushButton(buttons_box, text="Email List", command=email_list, align="left")
+    PushButton(buttons_box, text="Email List", command=email_list, align="left", width=pb_width)
 app.display()
