@@ -8,12 +8,13 @@ Copyright 2020-2021 David S. Ochs. All Rights Reserved
 """
 import numpy as np
 import csv
-from guizero import App, Box, Text, TextBox, PushButton
+from guizero import App, Box, Text, TextBox, PushButton, Combo, Window
 import os
 import smtplib, ssl
 import pickle
 from pathlib import Path
 import webbrowser
+import time
 
 class item:
     def __init__(self, label, entry):
@@ -25,6 +26,7 @@ class item:
                                  # when updating the list so they're not
                                  # treated like user-appended custom items
                                  # and left at the end of the list
+        self.del_window = None
 
     def add_entry_button(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text,
@@ -73,15 +75,55 @@ class item:
             self.user_list.append(cus_entry)
             update_list()
 
+    def update_cus_items(self):
+        self.del_window.destroy()
+        self.del_window = None
+        update_list()
+
+    def cancel_del_window(self):
+        self.del_window.destroy()
+        self.del_window = None
+        self.user_del_list.clear()
+    
     def remove_custom_entry(self):
         if self.quant > 0:
-            cus_entry = app.question("Enter Item", "Item Name")
-            if cus_entry is not None:
-                if cus_entry in self.user_list:
-                    self.user_del_list.append(cus_entry)
-                    update_list()
-                else:
-                    app.warn("Warning", "Item not found (check capitalization)")
+            if self.del_window is not None:
+                self.cancel_del_window()
+            self.del_window = Window(app, 
+                                    title="Select an Item to Delete", 
+                                    height=125, 
+                                    width=225)
+            # self.del_window.when_closed = update_list
+
+            tmp_list = [x for x in self.user_list]
+            tmp_list.insert(0, "Select Item")
+            Combo(self.del_window,
+                    options = tmp_list,
+                    command=self.add_selected_cus_delete)
+            close_button = PushButton(self.del_window, 
+                                      text="Delete Item", 
+                                      width=pb_width*2,
+                                      command=self.update_cus_items)
+            cancel_button = PushButton(self.del_window, 
+                                       text="Cancel", 
+                                       width=pb_width*2,
+                                       command=self.cancel_del_window)
+            self.del_window.show(wait=False)
+            self.del_window.update()
+            
+    def add_selected_cus_delete(self, value):
+        if value in self.user_list:
+            self.user_del_list.clear()
+            self.user_del_list.append(value)
+
+    # def del_selected(self):
+    #     if len(self.cus_to_delete) != 0:
+    #         if cus_entry in self.user_list:
+    #             self.user_del_list.append(cus_entry)
+    #             update_list()
+    #         else:
+    #             app.warn("Warning", "Item not found (check capitalization)")
+
 
 def update_list_display(d_str):
     global disp_list_prev
@@ -200,6 +242,8 @@ def update_list():
                     d_str += str(i + "\n")
     for i in custom_items:
         d_str += str(i + "\n")
+
+    #print(user_entry_list)
     update_list_display(d_str)
 
 def write_list_to_file(filename):
