@@ -507,7 +507,7 @@ CFG_FILENAME = ".cfg.pkl"
 URL_KEY = "ad_url" # used in store csv files to denote the url of the store's weekly add: ad_url=<url>
 ad_url = None
 app = App(title="Grocery List Sorter", height=1200, width=920,
-          bgcolor='white')
+          bg='white')
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save", command=save_list, align="left", width=pb_width)
