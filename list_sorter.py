@@ -14,7 +14,7 @@ import smtplib, ssl
 import pickle
 from pathlib import Path
 import webbrowser
-import time
+import math
 
 class item:
     def __init__(self, label, entry):
@@ -470,6 +470,15 @@ def load_store_clear():
             app.error('Incorrect File', 'Incorrect file type selected')
 
 def closing_action():
+    global screen_size_init
+    # if the app has been resized, save the new size so it can be automatically
+    # set next time the app is opened
+    h_now = app.tk.winfo_height()
+    w_now = app.tk.winfo_width()
+    screen_size_now = [h_now, w_now]
+    if screen_size_now != screen_size_init:
+        ss_str = str(h_now) + "x" + str(w_now)
+        save_cfg_item(SCREEN_RES_KEY, ss_str)
     if app.yesno("Close", "Do you want to save the list before closing?"):
         save_list()
     app.destroy()
@@ -493,21 +502,46 @@ def launch_weekly_ad():
         c = webbrowser.get('chrome')
         c.open(ad_url, 2)
 
+ENTRY_KEY = "ENTRY"
+AUTOLOAD_CFG_KEY = "AUTOLOAD"
+SCREEN_RES_KEY = "SCREEN_RES"
+CFG_FILENAME = ".cfg.pkl"
+URL_KEY = "ad_url" # used in store csv files to denote the url of the store's weekly add: ad_url=<url>
+
+app = App(title="Grocery List Sorter", bg='white')
+
+saved_res = load_cfg_item(SCREEN_RES_KEY)
+if saved_res is not None:
+    # screen res is saved in a string as <height>x<width>
+    h = int(saved_res.split('x')[0])
+    w = int(saved_res.split('x')[-1])
+else:
+    # app.full_screen = True
+    h = 1200
+    w = 920
+screen_size_init = [h, w]
+
+# set button widths based on screen resolution
+screen_res = [app.tk.winfo_screenheight(), app.tk.winfo_screenwidth()]
+if screen_res == [900, 1440]:
+    # mb air h=900, w=1440
+    pm_width = 1
+    entry_width = 1
+    pb_width = 3
+else:
+    # use 1920 x 1080 values as defaults
+    pm_width = 4
+    entry_width = 4
+    pb_width = 8
+
+app.height = h
+app.width = w
 page_limit = 40
 column_limit = 20
 last_item = 0
 text_size = 16
 save_name_old = ''
-pm_width = 1
-entry_width = 1
-pb_width = 3
-ENTRY_KEY = "ENTRY"
-AUTOLOAD_CFG_KEY = "AUTOLOAD"
-CFG_FILENAME = ".cfg.pkl"
-URL_KEY = "ad_url" # used in store csv files to denote the url of the store's weekly add: ad_url=<url>
 ad_url = None
-app = App(title="Grocery List Sorter", height=1200, width=920,
-          bg='white')
 
 buttons_box = Box(app, width="fill", align="bottom", border=True)
 PushButton(buttons_box, text="Save", command=save_list, align="left", width=pb_width)
