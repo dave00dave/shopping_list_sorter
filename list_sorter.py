@@ -486,6 +486,10 @@ def closing_action():
 def email_list():
     receiver_email = app.question("Enter Email", "Enter Email Address")
     if receiver_email:
+        with open('credentials.txt', 'r') as f:
+            sender_email = (f.readline()).rstrip('\n')
+            password = (f.readline()).rstrip('\n')
+
         port = 465  # For SSL
         smtp_server = "smtp.gmail.com"
         subject = "Subject: Your Sorted Shopping List\n"
@@ -582,12 +586,7 @@ if auto_load is not None:
 
 # Set up email service
 if os.path.exists('credentials.txt'):
-    with open('credentials.txt', 'r') as f:
-        sender_email = f.readline()
-        password = f.readline()
-    sender_email = sender_email[:-1]
-    password = password[:-1]
-
     # Add a send email button
     PushButton(buttons_box, text="Email List", command=email_list, align="left", width=pb_width)
+
 app.display()
