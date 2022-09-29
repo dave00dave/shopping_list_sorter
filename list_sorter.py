@@ -503,7 +503,10 @@ def email_list():
 def launch_weekly_ad():
     global ad_url
     if ad_url is not None:
-        c = webbrowser.get('chrome')
+        try:
+            c = webbrowser.get('google-chrome')
+        except webbrowser.Error:
+            c = webbrowser.get('chrome')
         c.open(ad_url, 2)
 
 ENTRY_KEY = "ENTRY"
