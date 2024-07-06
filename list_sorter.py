@@ -509,6 +509,10 @@ def launch_weekly_ad():
             c = webbrowser.get('chrome')
         c.open(ad_url, 2)
 
+def highlight_search():
+    searched_text = search_box.value
+    print(searched_text)
+
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
 SCREEN_RES_KEY = "SCREEN_RES"
@@ -571,6 +575,7 @@ title_box.text_size = text_size
 
 search_box =TextBox(search_box, height="fill", width="fill", align="left", text="search")
 search_box.text_size = text_size
+search_box.repeat(500, highlight_search)
 
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
                        width=26, align="left", text="")
