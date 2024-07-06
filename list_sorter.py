@@ -398,8 +398,9 @@ def new_list():
     clear_list()
     save_name_old = None
 
+
 def load_store(store_file):
-    global page_no, ad_url
+    global page_no, ad_url, num_item_pages
     ret_val = dict()
 
     items = []
@@ -444,10 +445,7 @@ def load_store(store_file):
             page_no += 1
             content_boxes[page_no].tk.configure(background='white')
 
-    # add one more page for the search results
-    content_boxes.append(Box(app, align="top", layout="grid",
-                             width="fill", border=False))
-    content_boxes[page_no + 1].tk.configure(background="white")
+    num_item_pages = page_no
     return items, ret_val
 
 def page_change(dir):
@@ -515,7 +513,10 @@ def launch_weekly_ad():
         c.open(ad_url, 2)
 
 def highlight_search():
-    global last_matches
+    global last_matches, search_in_progress, num_item_pages
+    if search_in_progress:
+        return
+
     searched_text = search_box.value
     # if searched_text in g_items
     # find items in the global items list that contain the
@@ -523,10 +524,21 @@ def highlight_search():
     if len(searched_text) > 1:
         matches = [i for i in g_items if searched_text.lower() in i.lower()]
         if(matches):
-            r = 0
-            c = 0
-            c_cnt = 0
+            search_in_progress = True
             if set(matches) != set(last_matches):
+                # if there's already an extra page from a previous search, delete it
+                while len(content_boxes) > num_item_pages:
+                    content_boxes[-1].visible = False
+                    del content_boxes[-1]
+
+                # add a new page at the end of the context_boxes list
+                # to hold the search results
+                content_boxes.append(Box(app, align="top", layout="grid",
+                                        width="fill", border=False))
+                content_boxes[-1].tk.configure(background="white")
+                r = 0
+                c = 0
+                c_cnt = 0
                 for i in matches:
                     item_d[i].add_to_screen(content_boxes[-1], r, c)
                     r += 1
@@ -541,10 +553,13 @@ def highlight_search():
         else:
             if content_boxes[-1].visible:
                 content_boxes[-1].visible = False
+                del content_boxes[-1]
                 content_boxes[page_no].visible = True
     elif content_boxes[-1].visible:
         content_boxes[-1].visible = False
+        del content_boxes[-1]
         content_boxes[page_no].visible = True
+    search_in_progress = False
 
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
@@ -610,6 +625,7 @@ search_box =TextBox(search_box, height="fill", width="fill", align="left", text=
 search_box.text_size = text_size
 search_box.repeat(500, highlight_search)
 last_matches = []
+search_in_progress = False
 
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
                        width=26, align="left", text="")
