@@ -398,8 +398,9 @@ def new_list():
     clear_list()
     save_name_old = None
 
+
 def load_store(store_file):
-    global num_pages, page_no, ad_url
+    global page_no, ad_url, num_item_pages
     ret_val = dict()
 
     items = []
@@ -443,6 +444,8 @@ def load_store(store_file):
                                      width="fill", border=False))
             page_no += 1
             content_boxes[page_no].tk.configure(background='white')
+
+    num_item_pages = page_no
     return items, ret_val
 
 def page_change(dir):
@@ -509,6 +512,62 @@ def launch_weekly_ad():
             c = webbrowser.get('chrome')
         c.open(ad_url, 2)
 
+def highlight_search():
+    global last_matches, search_in_progress, num_item_pages
+    if search_in_progress:
+        return
+
+    searched_text = search_box.value
+    # if searched_text in g_items
+    # find items in the global items list that contain the
+    # text in the search box
+    if len(searched_text) > 1:
+        matches = [i for i in g_items if searched_text.lower() in i.lower()]
+        if(matches):
+            search_in_progress = True
+            if set(matches) != set(last_matches):
+                # if there's already an extra page from a previous search, delete it
+                while len(content_boxes) > num_item_pages:
+                    content_boxes[-1].visible = False
+                    del content_boxes[-1]
+
+                # add a new page at the end of the context_boxes list
+                # to hold the search results
+                content_boxes.append(Box(app, align="top", layout="grid",
+                                        width="fill", border=False))
+                content_boxes[-1].tk.configure(background="white")
+                r = 0
+                c = 0
+                c_cnt = 0
+                added = 0
+                for i in matches:
+                    if item_d[i].user_entry:
+                        item_d[i].add_entry_button(content_boxes[-1], r, c)
+                    else:
+                        item_d[i].add_to_screen(content_boxes[-1], r, c)
+                    r += 1
+                    c_cnt += 1
+                    added += 1
+                    if np.mod(c_cnt, column_limit) == 0:
+                        c += 4
+                        c_cnt = 0
+                        r = 0
+                    if added > page_limit:
+                        break
+                content_boxes[page_no].visible = False
+                content_boxes[-1].visible = True
+            last_matches = matches
+        else:
+            if content_boxes[-1].visible:
+                content_boxes[-1].visible = False
+                del content_boxes[-1]
+                content_boxes[page_no].visible = True
+    elif content_boxes[-1].visible:
+        content_boxes[-1].visible = False
+        del content_boxes[-1]
+        content_boxes[page_no].visible = True
+    search_in_progress = False
+
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
 SCREEN_RES_KEY = "SCREEN_RES"
@@ -562,11 +621,19 @@ PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
 title_box = Box(app, height="10", align="top", border=False)
+search_box = Box(app, height="10", align="top", border=False)
 list_box = Box(app, height="fill", align="right", border=True)
 # self.text = Text(box, grid=[col+0, row], text=self.disp_text,
             # align="right", size=text_size)
 title_box = Text(title_box, align="left", text="")
 title_box.text_size = text_size
+
+search_box =TextBox(search_box, height="fill", width="fill", align="left", text="search")
+search_box.text_size = text_size
+search_box.repeat(500, highlight_search)
+last_matches = []
+search_in_progress = False
+
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
                        width=26, align="left", text="")
 list_display.text_size = text_size
