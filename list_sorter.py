@@ -562,11 +562,16 @@ PushButton(buttons_box, text="Next Page", command=page_change, args = [1], align
 PushButton(buttons_box, text="Previous Page", command=page_change, args = [-1], align="right")
 
 title_box = Box(app, height="10", align="top", border=False)
+search_box = Box(app, height="10", align="top", border=False)
 list_box = Box(app, height="fill", align="right", border=True)
 # self.text = Text(box, grid=[col+0, row], text=self.disp_text,
             # align="right", size=text_size)
 title_box = Text(title_box, align="left", text="")
 title_box.text_size = text_size
+
+search_box = Text(search_box, align="left", text="Test")
+search_box.text_size = text_size
+
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
                        width=26, align="left", text="")
 list_display.text_size = text_size
