@@ -628,7 +628,7 @@ list_box = Box(app, height="fill", align="right", border=True)
 title_box = Text(title_box, align="left", text="")
 title_box.text_size = text_size
 
-search_box =TextBox(search_box, height="fill", width="fill", align="left", text="search")
+search_box =TextBox(search_box, height="fill", width="fill", align="left", text="Type to search")
 search_box.text_size = text_size
 search_box.repeat(1000, highlight_search)
 last_matches = []
