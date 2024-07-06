@@ -630,7 +630,7 @@ title_box.text_size = text_size
 
 search_box =TextBox(search_box, height="fill", width="fill", align="left", text="search")
 search_box.text_size = text_size
-search_box.repeat(500, highlight_search)
+search_box.repeat(1000, highlight_search)
 last_matches = []
 search_in_progress = False
 
