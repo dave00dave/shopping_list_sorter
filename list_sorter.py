@@ -569,7 +569,7 @@ list_box = Box(app, height="fill", align="right", border=True)
 title_box = Text(title_box, align="left", text="")
 title_box.text_size = text_size
 
-search_box = Text(search_box, align="left", text="Test")
+search_box =TextBox(search_box, height="fill", width="fill", align="left", text="search")
 search_box.text_size = text_size
 
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
