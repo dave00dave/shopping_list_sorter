@@ -539,14 +539,21 @@ def highlight_search():
                 r = 0
                 c = 0
                 c_cnt = 0
+                added = 0
                 for i in matches:
-                    item_d[i].add_to_screen(content_boxes[-1], r, c)
+                    if item_d[i].user_entry:
+                        item_d[i].add_entry_button(content_boxes[-1], r, c)
+                    else:
+                        item_d[i].add_to_screen(content_boxes[-1], r, c)
                     r += 1
                     c_cnt += 1
+                    added += 1
                     if np.mod(c_cnt, column_limit) == 0:
                         c += 4
                         c_cnt = 0
                         r = 0
+                    if added > page_limit:
+                        break
                 content_boxes[page_no].visible = False
                 content_boxes[-1].visible = True
             last_matches = matches
