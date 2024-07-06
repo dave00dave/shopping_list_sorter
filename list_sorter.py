@@ -399,7 +399,7 @@ def new_list():
     save_name_old = None
 
 def load_store(store_file):
-    global num_pages, page_no, ad_url
+    global page_no, ad_url
     ret_val = dict()
 
     items = []
@@ -443,6 +443,11 @@ def load_store(store_file):
                                      width="fill", border=False))
             page_no += 1
             content_boxes[page_no].tk.configure(background='white')
+
+    # add one more page for the search results
+    content_boxes.append(Box(app, align="top", layout="grid",
+                             width="fill", border=False))
+    content_boxes[page_no + 1].tk.configure(background="white")
     return items, ret_val
 
 def page_change(dir):
@@ -510,6 +515,7 @@ def launch_weekly_ad():
         c.open(ad_url, 2)
 
 def highlight_search():
+    global last_matches
     searched_text = search_box.value
     # if searched_text in g_items
     # find items in the global items list that contain the
@@ -518,6 +524,16 @@ def highlight_search():
         matches = [i for i in g_items if searched_text.lower() in i.lower()]
         if(matches):
             print(matches)
+            if set(matches) != set(last_matches):
+                content_boxes[page_no + 1].visible = True
+            last_matches = matches
+        else:
+            if content_boxes[page_no + 1].visible:
+                content_boxes[page_no + 1].visible = False
+                content_boxes[0].visible = True
+    elif content_boxes[page_no + 1].visible:
+        content_boxes[page_no + 1].visible = False
+        content_boxes[0].visible = True
 
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
@@ -582,6 +598,7 @@ title_box.text_size = text_size
 search_box =TextBox(search_box, height="fill", width="fill", align="left", text="search")
 search_box.text_size = text_size
 search_box.repeat(500, highlight_search)
+last_matches = []
 
 list_display = TextBox(list_box, multiline=True, scrollbar=True, height="fill",
                        width=26, align="left", text="")
