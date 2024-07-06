@@ -514,8 +514,10 @@ def highlight_search():
     # if searched_text in g_items
     # find items in the global items list that contain the
     # text in the search box
-    matches = [i for i in g_items if searched_text in i]
-    print(matches)
+    if len(searched_text) > 1:
+        matches = [i for i in g_items if searched_text.lower() in i.lower()]
+        if(matches):
+            print(matches)
 
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
