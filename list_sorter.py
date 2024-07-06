@@ -523,17 +523,28 @@ def highlight_search():
     if len(searched_text) > 1:
         matches = [i for i in g_items if searched_text.lower() in i.lower()]
         if(matches):
-            print(matches)
+            r = 0
+            c = 0
+            c_cnt = 0
             if set(matches) != set(last_matches):
-                content_boxes[page_no + 1].visible = True
+                for i in matches:
+                    item_d[i].add_to_screen(content_boxes[-1], r, c)
+                    r += 1
+                    c_cnt += 1
+                    if np.mod(c_cnt, column_limit) == 0:
+                        c += 4
+                        c_cnt = 0
+                        r = 0
+                content_boxes[page_no].visible = False
+                content_boxes[-1].visible = True
             last_matches = matches
         else:
-            if content_boxes[page_no + 1].visible:
-                content_boxes[page_no + 1].visible = False
-                content_boxes[0].visible = True
-    elif content_boxes[page_no + 1].visible:
-        content_boxes[page_no + 1].visible = False
-        content_boxes[0].visible = True
+            if content_boxes[-1].visible:
+                content_boxes[-1].visible = False
+                content_boxes[page_no].visible = True
+    elif content_boxes[-1].visible:
+        content_boxes[-1].visible = False
+        content_boxes[page_no].visible = True
 
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
