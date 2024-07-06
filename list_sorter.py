@@ -511,7 +511,11 @@ def launch_weekly_ad():
 
 def highlight_search():
     searched_text = search_box.value
-    print(searched_text)
+    # if searched_text in g_items
+    # find items in the global items list that contain the
+    # text in the search box
+    matches = [i for i in g_items if searched_text in i]
+    print(matches)
 
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
