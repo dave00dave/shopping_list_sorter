@@ -400,7 +400,7 @@ def new_list():
 
 
 def load_store(store_file):
-    global page_no, ad_url, num_item_pages
+    global page_no, ad_url, num_item_pages, search_page_index
     ret_val = dict()
 
     items = []
@@ -445,12 +445,15 @@ def load_store(store_file):
             page_no += 1
             content_boxes[page_no].tk.configure(background='white')
 
-    num_item_pages = page_no
+    num_item_pages = page_no + 1 # page_no is 0 indexed
+    search_page_index = num_item_pages # the search page will be 1 after the last normal item page
     return items, ret_val
 
 def page_change(dir):
-    global page_no
-    if dir > 0 and page_no < len(content_boxes)-1:
+    global page_no, num_item_pages
+
+    check_restore_main_pages()
+    if dir > 0 and page_no < num_item_pages - 1:
         content_boxes[page_no].visible = False
         page_no += 1
         content_boxes[page_no].visible = True
@@ -512,8 +515,16 @@ def launch_weekly_ad():
             c = webbrowser.get('chrome')
         c.open(ad_url, 2)
 
+def check_restore_main_pages():
+    if len(content_boxes) > num_item_pages and content_boxes[search_page_index].visible:
+        # a search page is visible and we want to revert to normal pagination
+        content_boxes[search_page_index].visible = False
+        del content_boxes[search_page_index]
+        content_boxes[page_no].visible = True
+        search_box.value = ""
+
 def highlight_search():
-    global last_matches, search_in_progress, num_item_pages
+    global last_matches, search_in_progress, num_item_pages, search_page_index
     if search_in_progress:
         return
 
@@ -535,16 +546,16 @@ def highlight_search():
                 # to hold the search results
                 content_boxes.append(Box(app, align="top", layout="grid",
                                         width="fill", border=False))
-                content_boxes[-1].tk.configure(background="white")
+                content_boxes[search_page_index].tk.configure(background="white")
                 r = 0
                 c = 0
                 c_cnt = 0
                 added = 0
                 for i in matches:
                     if item_d[i].user_entry:
-                        item_d[i].add_entry_button(content_boxes[-1], r, c)
+                        item_d[i].add_entry_button(content_boxes[search_page_index], r, c)
                     else:
-                        item_d[i].add_to_screen(content_boxes[-1], r, c)
+                        item_d[i].add_to_screen(content_boxes[search_page_index], r, c)
                     r += 1
                     c_cnt += 1
                     added += 1
@@ -555,17 +566,12 @@ def highlight_search():
                     if added > page_limit:
                         break
                 content_boxes[page_no].visible = False
-                content_boxes[-1].visible = True
+                content_boxes[search_page_index].visible = True
             last_matches = matches
         else:
-            if content_boxes[-1].visible:
-                content_boxes[-1].visible = False
-                del content_boxes[-1]
-                content_boxes[page_no].visible = True
-    elif content_boxes[-1].visible:
-        content_boxes[-1].visible = False
-        del content_boxes[-1]
-        content_boxes[page_no].visible = True
+            check_restore_main_pages()
+    else:
+        check_restore_main_pages()
     search_in_progress = False
 
 ENTRY_KEY = "ENTRY"
@@ -602,8 +608,8 @@ else:
 
 app.height = h
 app.width = w
-page_limit = 40
-column_limit = 20
+column_limit = 19
+page_limit = column_limit * 2
 last_item = 0
 text_size = 16
 save_name_old = ''
@@ -628,7 +634,7 @@ list_box = Box(app, height="fill", align="right", border=True)
 title_box = Text(title_box, align="left", text="")
 title_box.text_size = text_size
 
-search_box =TextBox(search_box, height="fill", width="fill", align="left", text="search")
+search_box =TextBox(search_box, height="fill", width="fill", align="left", text="Type to search")
 search_box.text_size = text_size
 search_box.repeat(1000, highlight_search)
 last_matches = []
