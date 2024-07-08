@@ -14,6 +14,7 @@ Croissants
 "Raisins	"
 "Dried Cranberries	"
 "Crackers, Animal"
+Cheezits
 "Crackers, Surprise!"
 "Crackers, Clubhouse"
 "Crackers, Penguins"
@@ -21,7 +22,7 @@ Croissants
 "Crackers, Oyster"
 "Vanilla Wafers	"
 "Cookies	"
-"Graham Crackers	"
+"Crackers, Graham	"
 "Saltines	"
 "Crackers, Ritz"
 Corn Chips
@@ -31,6 +32,7 @@ Corn Chips
 "Hummus	"
 "Pretzels, Sticks"
 Popcorn
+"Pepperoni	"
 "Flour	"
 "Sugar	"
 "Brown Sugar	"
@@ -44,6 +46,7 @@ Evaporated Milk
 "Pudding, Vanilla	"
 Pumpkin Puree
 Chocolate Chips
+Mini Marshmallows
 "Gelatin	"
 "Cake Mix	"
 "Brownie Mix	"
@@ -75,6 +78,7 @@ Salad Dressing ENTRY
 Olives
 Ranch Mix
 Italian Dressing Mix
+Jude's Granola Bars
 Nutrigrain Bars
 "Syrup	"
 "Oats, QC"
@@ -91,8 +95,6 @@ Mini Wheats
 "Peppers, Green	"
 "Peppers, Colored"
 "Tomatoes, Fresh"
-"Diapers	"
-"Wipes	"
 "Napkins	"
 Tissues
 "TP	"
@@ -111,8 +113,6 @@ Tissues
 "Cheese, American Slices	"
 "Cheese, Shredded Cheddar"
 "Cheese, Shredded Mozz."
-"Cheese, Shredded Cojack"
-"Cheese, Shredded Pizza"
 "Cheese, Other ENTRY"
 "Sandwich Meat	"
 "Biscuits, Canned"
@@ -148,7 +148,6 @@ Chicken Stuffing
 "Taco Shells, Hard"
 Pasta Salad
 "Pizza Crust	"
-"Pepperoni	"
 Mac and Cheese
 "Parmesan Cheese	"
 Elbow Macaroni
@@ -174,6 +173,7 @@ Fish (lb.)
 Bacon
 "Sausage, Ground Bulk (lb.)"
 "Sausage, Smoked"
+Sausage Links
 Hot Dogs
 Cream Cheese
 Whipped Cream Cheese
@@ -191,6 +191,7 @@ Fish Sticks
 "Broccoli, Frozen"
 "Corn, Frozen"
 Frozen Vegetables
+Corndogs
 Frozen Pizza
 Meatballs
 Ice Cream
