@@ -40,19 +40,35 @@ class item:
                                 width=entry_width, padx=0, pady=6)
 
     def add_to_screen(self, box, row, col):
-        self.text = Text(box, grid=[col+0, row], text=self.disp_text,
-                    align="right", size=text_size)
+        self.text = Text(box,
+                         grid=[col+0, row],
+                         text=self.disp_text,
+                         align="right",
+                         size=text_size)
         self.text.bg = 'white'
-        self.plus = PushButton(box, grid=[col+3, row], text="+",
-                               command=self.add_1, align="left", width=pm_width,
-                               padx=0, pady=6)
+        self.plus = PushButton(box,
+                               grid=[col+3, row],
+                               text="+",
+                               command=self.add_1,
+                               align="left",
+                               width=pm_width,
+                               padx=0,
+                               pady=6)
         self.plus.bg = 'white'
-        self.val = Text(box, grid=[col+2, row], text=str(self.quant), width=2,
-                           align="left")
+        self.val = Text(box,
+                        grid=[col+2, row],
+                        text=str(self.quant),
+                        width=2,
+                        align="left")
         self.val.bg = 'white'
-        self.minus = PushButton(box, grid=[col+1, row], text="-",
-                                command=self.sub_1, align="left", width=pm_width,
-                                padx=0, pady=6)
+        self.minus = PushButton(box,
+                                grid=[col+1, row],
+                                text="-",
+                                command=self.sub_1,
+                                align="left",
+                                width=pm_width,
+                                padx=0,
+                                pady=6)
         self.minus.bg = 'white'
 
     def add_1(self):
@@ -527,6 +543,8 @@ def highlight_search():
     global last_matches, search_in_progress, num_item_pages, search_page_index
     if search_in_progress:
         return
+    else:
+        search_in_progress = True
 
     searched_text = search_box.value
     # if searched_text in g_items
@@ -535,7 +553,6 @@ def highlight_search():
     if len(searched_text) > 1:
         matches = [i for i in g_items if searched_text.lower() in i.lower()]
         if(matches):
-            search_in_progress = True
             if set(matches) != set(last_matches):
                 # if there's already an extra page from a previous search, delete it
                 while len(content_boxes) > num_item_pages:
@@ -636,7 +653,7 @@ title_box.text_size = text_size
 
 search_box =TextBox(search_box, height="fill", width="fill", align="left", text="Type to search")
 search_box.text_size = text_size
-search_box.repeat(1000, highlight_search)
+search_box.repeat(500, highlight_search)
 last_matches = []
 search_in_progress = False
 
