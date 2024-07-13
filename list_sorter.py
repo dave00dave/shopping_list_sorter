@@ -589,6 +589,7 @@ def highlight_search():
             check_restore_main_pages()
     else:
         check_restore_main_pages()
+        last_matches = []
     search_in_progress = False
 
 ENTRY_KEY = "ENTRY"
