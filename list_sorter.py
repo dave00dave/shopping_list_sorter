@@ -14,7 +14,7 @@ import smtplib, ssl
 import pickle
 from pathlib import Path
 import webbrowser
-import math
+import copy
 
 class item:
     PLUS_OFFSET = 3
@@ -33,6 +33,7 @@ class item:
                                  # treated like user-appended custom items
                                  # and left at the end of the list
         self.del_window = None
+        self.base_val = None
 
     def add_entry_button(self, box, row, col):
         self.text = Text(box, grid=[col+0, row], text=self.disp_text,
@@ -45,7 +46,7 @@ class item:
                                 command=self.get_custom_entry, align="left",
                                 width=entry_width, padx=0, pady=6)
 
-    def add_to_screen(self, box, row, col):
+    def add_to_screen(self, box, row, col, init=True):
         self.text = Text(box,
                          grid = [col, row],
                          text = self.disp_text,
@@ -67,6 +68,8 @@ class item:
                         width=2,
                         align="left")
         self.val.bg = 'white'
+        if init:
+            self.base_val = copy.copy(self.val)
         self.minus = PushButton(box,
                                 grid = [col+1, row],
                                 text = "-",
@@ -541,6 +544,10 @@ def check_restore_main_pages():
     if len(content_boxes) > num_item_pages and content_boxes[search_page_index].visible:
         # a search page is visible and we want to revert to normal pagination
         content_boxes[search_page_index].visible = False
+        for i in last_matches:
+            if item_d[i].base_val:
+                item_d[i].val = item_d[i].base_val
+                item_d[i].val.value = str(item_d[i].quant)
         content_boxes[search_page_index].destroy()
         del content_boxes[search_page_index]
         content_boxes[page_no].visible = True
@@ -580,7 +587,7 @@ def highlight_search():
                     if item_d[i].user_entry:
                         item_d[i].add_entry_button(content_boxes[search_page_index], r, c)
                     else:
-                        item_d[i].add_to_screen(content_boxes[search_page_index], r, c)
+                        item_d[i].add_to_screen(content_boxes[search_page_index], r, c, init=False)
                     r += 1
                     c_cnt += 1
                     added += 1
