@@ -541,6 +541,7 @@ def check_restore_main_pages():
     if len(content_boxes) > num_item_pages and content_boxes[search_page_index].visible:
         # a search page is visible and we want to revert to normal pagination
         content_boxes[search_page_index].visible = False
+        content_boxes[search_page_index].destroy()
         del content_boxes[search_page_index]
         content_boxes[page_no].visible = True
         search_box.value = ""
@@ -563,6 +564,7 @@ def highlight_search():
                 # if there's already an extra page from a previous search, delete it
                 while len(content_boxes) > num_item_pages:
                     content_boxes[-1].visible = False
+                    content_boxes[-1].destroy()
                     del content_boxes[-1]
 
                 # add a new page at the end of the context_boxes list
