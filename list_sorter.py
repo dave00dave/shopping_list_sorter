@@ -17,6 +17,12 @@ import webbrowser
 import math
 
 class item:
+    PLUS_OFFSET = 3
+    MINUS_OFFSET = 1
+    PLUS_MINUS_PADX = 0
+    PLUS_MINUS_PADY = 6
+    VAL_COL_OFFSET = 2
+    VAL_WIDTH = 2
     def __init__(self, label, entry):
         self.quant = 0
         self.disp_text = label
@@ -41,19 +47,19 @@ class item:
 
     def add_to_screen(self, box, row, col):
         self.text = Text(box,
-                         grid=[col+0, row],
-                         text=self.disp_text,
-                         align="right",
-                         size=text_size)
+                         grid = [col, row],
+                         text = self.disp_text,
+                         align = "right",
+                         size = text_size)
         self.text.bg = 'white'
         self.plus = PushButton(box,
-                               grid=[col+3, row],
-                               text="+",
-                               command=self.add_1,
-                               align="left",
-                               width=pm_width,
-                               padx=0,
-                               pady=6)
+                               grid = [col + self.PLUS_OFFSET, row],
+                               text = "+",
+                               command = self.add_1,
+                               align = "left",
+                               width = pm_width,
+                               padx = self.PLUS_MINUS_PADX,
+                               pady = self.PLUS_MINUS_PADY)
         self.plus.bg = 'white'
         self.val = Text(box,
                         grid=[col+2, row],
@@ -62,13 +68,13 @@ class item:
                         align="left")
         self.val.bg = 'white'
         self.minus = PushButton(box,
-                                grid=[col+1, row],
-                                text="-",
-                                command=self.sub_1,
-                                align="left",
-                                width=pm_width,
-                                padx=0,
-                                pady=6)
+                                grid = [col+1, row],
+                                text = "-",
+                                command = self.sub_1,
+                                align = "left",
+                                width = pm_width,
+                                padx = self.PLUS_MINUS_PADX,
+                                pady = self.PLUS_MINUS_PADY)
         self.minus.bg = 'white'
 
     def add_1(self):
