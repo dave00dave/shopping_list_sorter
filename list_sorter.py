@@ -565,7 +565,7 @@ def highlight_search():
     # find items in the global items list that contain the
     # text in the search box
     if len(searched_text) > 1:
-        matches = [i for i in g_items if searched_text.lower() in i.lower()]
+        matches = sorted([i for i in g_items if searched_text.lower() in i.lower()])
         if(matches):
             if set(matches) != set(last_matches):
                 # if there's already an extra page from a previous search, delete it
