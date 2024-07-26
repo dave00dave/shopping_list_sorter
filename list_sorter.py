@@ -9,6 +9,7 @@ Copyright 2020-2021 David S. Ochs. All Rights Reserved
 import numpy as np
 import csv
 from guizero import App, Box, Text, TextBox, PushButton, Combo, Window
+from tkinter import END
 import os
 import smtplib, ssl
 import pickle
@@ -607,6 +608,15 @@ def highlight_search():
         last_matches = []
     search_in_progress = False
 
+def highlight_search_select_all(event):
+    search_box.tk.select_range(0, END)
+
+def set_search_focus():
+    # change the focus away from the search bar, then back
+    # to it so the focus_in event will be triggered again
+    title_box.focus()
+    search_box.focus()
+
 ENTRY_KEY = "ENTRY"
 AUTOLOAD_CFG_KEY = "AUTOLOAD"
 SCREEN_RES_KEY = "SCREEN_RES"
@@ -669,6 +679,8 @@ title_box.text_size = text_size
 
 search_box =TextBox(search_box, height="fill", width="fill", align="left", text="Type to search")
 search_box.text_size = text_size
+search_box.when_clicked = set_search_focus
+search_box.tk.bind("<FocusIn>", highlight_search_select_all)
 search_box.repeat(500, highlight_search)
 last_matches = []
 search_in_progress = False
