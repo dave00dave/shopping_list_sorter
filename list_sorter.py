@@ -541,14 +541,17 @@ def launch_weekly_ad():
             c = webbrowser.get('chrome')
         c.open(ad_url, 2)
 
+def restore_quantities_from_search():
+    for i in last_matches:
+        if item_d[i].base_val:
+            item_d[i].val = item_d[i].base_val
+            item_d[i].val.value = str(item_d[i].quant)
+
 def check_restore_main_pages():
     if len(content_boxes) > num_item_pages and content_boxes[search_page_index].visible:
         # a search page is visible and we want to revert to normal pagination
         content_boxes[search_page_index].visible = False
-        for i in last_matches:
-            if item_d[i].base_val:
-                item_d[i].val = item_d[i].base_val
-                item_d[i].val.value = str(item_d[i].quant)
+        restore_quantities_from_search()
         content_boxes[search_page_index].destroy()
         del content_boxes[search_page_index]
         content_boxes[page_no].visible = True
@@ -571,6 +574,7 @@ def highlight_search():
             if set(matches) != set(last_matches):
                 # if there's already an extra page from a previous search, delete it
                 while len(content_boxes) > num_item_pages:
+                    restore_quantities_from_search()
                     content_boxes[-1].visible = False
                     content_boxes[-1].destroy()
                     del content_boxes[-1]
