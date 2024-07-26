@@ -603,8 +603,10 @@ def highlight_search():
             last_matches = matches
         else:
             check_restore_main_pages()
-    else:
+    elif len(searched_text) == 0:
         check_restore_main_pages()
+        last_matches = []
+    else:
         last_matches = []
     search_in_progress = False
 
