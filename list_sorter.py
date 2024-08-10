@@ -610,8 +610,7 @@ def highlight_search():
     elif len(searched_text) == 0:
         check_restore_main_pages()
         last_matches = []
-    else:
-        last_matches = []
+
     search_in_progress = False
 
 def highlight_search_select_all(event):
