@@ -605,8 +605,6 @@ def highlight_search():
                 content_boxes[page_no].visible = False
                 content_boxes[search_page_index].visible = True
             last_matches = matches
-        else:
-            check_restore_main_pages()
     elif len(searched_text) == 0:
         check_restore_main_pages()
         last_matches = []
