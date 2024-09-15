@@ -17,12 +17,15 @@ from pathlib import Path
 import webbrowser
 import copy
 
+ENTRY_ITEM_DELIM = '*'
+
 class item:
     PLUS_OFFSET = 3
     MINUS_OFFSET = 1
     PLUS_MINUS_PADX = 0
     PLUS_MINUS_PADY = 6
     VAL_COL_OFFSET = 2
+
     VAL_WIDTH = 2
     def __init__(self, label, entry):
         self.quant = 0
@@ -291,7 +294,7 @@ def write_list_to_file(filename):
         # write the user-defined custom items to the end of the file
         for k, v in item_d.items():
             if k.split()[-1] == ENTRY_KEY:
-                tmp = k + ":" + ".".join(v.user_list)
+                tmp = k + ":" + ENTRY_ITEM_DELIM.join(v.user_list)
                 file_writer.writerow([tmp])
 
 def save_list_as():
@@ -354,7 +357,7 @@ def load_list(load_file):
                     # user-specified items that are sorted (eg. spices)
                     kv = tmp.split(":")
                     k = kv[0]
-                    cus_items = kv[-1].split('.')
+                    cus_items = kv[-1].split(ENTRY_ITEM_DELIM)
                     for cus_en in cus_items:
                         if cus_en != '':
                             cus_entry_d.update({cus_en: k})
