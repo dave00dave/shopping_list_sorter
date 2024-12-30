@@ -1,18 +1,17 @@
 ad_url=https://www.aldi.us/en/weekly-specials/our-weekly-ads/
-"Fruit	"
-"Baby Carrots	"
-"Cucumbers	"
+Fruit	
+Baby Carrots	
+Cucumbers	
 "Broccoli, Fresh"
-"Lettuce	"
+Lettuce	
 Croissants
-"Bagels	"
-"English Muffins	"
-"Bread	"
-"HB Buns	"
-"HD Buns	"
-"Hoagies	"
-"Raisins	"
-"Dried Cranberries	"
+"Bread, Fancy"
+Bagels	
+Bread	
+HB Buns	
+HD Buns	
+Raisins	
+Dried Cranberries	
 "Crackers, Animal"
 Cheezits
 "Crackers, Surprise!"
@@ -20,26 +19,25 @@ Cheezits
 "Crackers, Penguins"
 "Crackers, PB Sandwich"
 "Crackers, Oyster"
-"Vanilla Wafers	"
-"Cookies	"
+Vanilla Wafers	
+Cookies	
 "Crackers, Graham	"
-"Saltines	"
+Saltines	
 "Crackers, Ritz"
 Corn Chips
-"Tortilla Chips	"
+Tortilla Chips	
 "Salsa, Mild"
 "Salsa, Medium"
-"Hummus	"
-"Pretzels, Sticks"
+Hummus	
+Pretzels
 Popcorn
-"Pepperoni	"
-"Flour	"
-"Sugar	"
-"Brown Sugar	"
-"Powdered Sugar	"
-"Baking Powder	"
-"Yeast	"
-"Baking Soda	"
+Flour	
+Sugar	
+Brown Sugar	
+Powdered Sugar	
+Baking Powder	
+Yeast	
+Baking Soda	
 Sweetened Condensed Milk
 Evaporated Milk
 "Pudding, Chocolate	"
@@ -47,17 +45,17 @@ Evaporated Milk
 Pumpkin Puree
 Chocolate Chips
 Mini Marshmallows
-"Gelatin	"
-"Cake Mix	"
-"Brownie Mix	"
+Gelatin	
+Cake Mix	
+Brownie Mix	
 Cornbread Mix
-"Bisquick	"
+Bisquick	
 Olive Oil
 Canola Oil
 Cooking Spray
 Minced Garlic
 Chili Seasoning
-"Cocoa Powder	"
+Cocoa Powder	
 Spices ENTRY
 Vanilla Extract
 Honey
@@ -71,6 +69,7 @@ Ketchup
 "Mustard, Yellow"
 "Mustard, Spicy Brown"
 "Mustard, Honey"
+"Mustard, Dijon"
 Dill Pickle Slices
 Mayo
 Miracle Whip
@@ -80,7 +79,7 @@ Ranch Mix
 Italian Dressing Mix
 Jude's Granola Bars
 Nutrigrain Bars
-"Syrup	"
+Syrup	
 "Oats, QC"
 "Oats, OF"
 Cheerios
@@ -91,22 +90,20 @@ Mini Wheats
 "Potatoes, Russet"
 "Potatoes, Red"
 "Potatoes, Sweet"
-"Celery	"
+Celery	
 "Peppers, Green	"
 "Peppers, Colored"
 "Tomatoes, Fresh"
-"Napkins	"
+Napkins	
 Tissues
-"TP	"
-"Paper Towels	"
-"Aluminum Foil	"
+TP	
+Paper Towels	
+Aluminum Foil	
 "Ziploc, Sandwich"
 "Ziploc, Freezer"
 "Ziploc, Gallon"
 "Trash Bags, White"
 "Trash Bags, Black"
-"Cheese, Sticks	"
-"Cheese, String	"
 "Cheese, Swiss Block"
 "Cheese, Variety Block	"
 "Cheese, Sandwich	"
@@ -114,17 +111,17 @@ Tissues
 "Cheese, Shredded Cheddar"
 "Cheese, Shredded Mozz."
 "Cheese, Other ENTRY"
-"Sandwich Meat	"
+Sandwich Meat	
 "Biscuits, Canned"
 Coffee Filters
-"Applesauce	"
+Applesauce	
 "Fruit, Canned"
 "Corn, Canned"
 "Green Beans, Canned"
-"Cream of Chicken Soup	"
-"Chicken Broth	"
+Cream of Chicken Soup	
+Chicken Broth	
 Chicken Stock
-"Tomato Soup	"
+Tomato Soup	
 Canned Goods ENTRY
 Mushrooms
 "Tomato Paste, 6 oz.	"
@@ -137,39 +134,36 @@ Mushrooms
 "Beans, Red Kidney	"
 "Beans, Baked"
 Canned Chicken
-"Bread Crumbs, Plain"
-"Bread Crumbs, Panko"
-"Bread Crumbs, Italian"
 Chicken Stuffing
-"Rotel	"
-"Taco Seasoning	"
-"Refried Beans	"
-"Tortillas	"
+Rotel	
+Taco Seasoning	
+Refried Beans	
+Tortillas	
 "Taco Shells, Hard"
 Pasta Salad
-"Pizza Crust	"
+Pizza Crust	
 Mac and Cheese
-"Parmesan Cheese	"
+Pepperoni	
+Parmesan Cheese	
 Elbow Macaroni
-"Spaghetti	"
-"Fettucine	"
+Spaghetti	
+Fettucine	
 Angel Hair Pasta
-"Penne	"
-"Rotini	"
-"Linguine	"
+Penne	
+Rotini	
+Linguine	
 Lasagna Noodles
 Egg Noodles
-"Pesto	"
-"Marinara Sauce	"
-"Pasta Sauce	"
+Pesto	
+Marinara Sauce	
+Pasta Sauce	
 Alfredo Sauce
 "Rice, Instant Brown"
 "Rice, Instant White"
 "Rice, Long Grain"
 "Sausage, Ground Italian (lb.)"
-Fish (lb.)
 "Beef, Ground (lb.)	"
-"Chicken Breasts (lb.)	"
+Chicken Breasts (lb.)	
 Bacon
 "Sausage, Ground Bulk (lb.)"
 "Sausage, Smoked"
