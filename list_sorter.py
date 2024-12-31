@@ -212,7 +212,7 @@ def update_list():
     # look for items in the saved custom entry list that aren't in the displayed list
     # Those items have been manually deleted from the displayed list; mark
     # them to be removed from the custom item list
-    del_items = np.setdiff1d(disp_list_prev, disp_list)
+    del_items = np.setdiff1d([x.rstrip('?') for x in disp_list_prev], [x.rstrip('?') for x in disp_list]) # ignore ? in this comparison
     # rmvd_cus_items = np.setdiff1d(user_entry_list, del_items)
     for r in del_items:
         for i in tmp_l:
