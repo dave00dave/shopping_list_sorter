@@ -5,13 +5,10 @@ Cucumbers
 "Broccoli, Fresh"
 Lettuce	
 Croissants
+Tortillas
 "Bread, Fancy"
 Bagels	
-Bread	
-HB Buns	
-HD Buns	
-Raisins	
-Dried Cranberries	
+Peanut Butter
 "Crackers, Animal"
 Cheezits
 "Crackers, Surprise!"
@@ -20,17 +17,48 @@ Cheezits
 "Crackers, PB Sandwich"
 "Crackers, Oyster"
 Vanilla Wafers	
+Bread	
+HB Buns	
+HD Buns	
 Cookies	
 "Crackers, Graham	"
 Saltines	
 "Crackers, Ritz"
 Corn Chips
 Tortilla Chips	
-"Salsa, Mild"
-"Salsa, Medium"
-Hummus	
 Pretzels
 Popcorn
+"Salsa, Mild"
+"Salsa, Medium"
+Honey
+Grape Jelly
+Worchestershire Sauce
+Steak Sauce
+BBQ Sauce
+Ketchup
+"Mustard, Yellow"
+"Mustard, Spicy Brown"
+"Mustard, Honey"
+"Mustard, Dijon"
+Dill Pickle Slices
+Mayo
+Miracle Whip
+Salad Dressing ENTRY
+Olives
+Ranch Mix
+Italian Dressing Mix
+Hummus		
+Minced Garlic
+Cocoa Powder
+Vanilla Extract
+"Veggies, Other ENTRY"
+"Potatoes, Russet"
+"Potatoes, Red"
+"Potatoes, Sweet"
+Celery	
+"Peppers, Green	"
+"Peppers, Colored"
+"Tomatoes, Fresh"
 Flour	
 Sugar	
 Brown Sugar	
@@ -49,61 +77,13 @@ Gelatin
 Cake Mix	
 Brownie Mix	
 Cornbread Mix
-Bisquick	
+Bisquick
+"Vinegar, White"
 Olive Oil
 Canola Oil
 Cooking Spray
-Minced Garlic
-Chili Seasoning
-Cocoa Powder	
-Spices ENTRY
-Vanilla Extract
-Honey
-Peanut Butter
-Grape Jelly
-Worchestershire Sauce
-"Vinegar, White"
-Steak Sauce
-BBQ Sauce
-Ketchup
-"Mustard, Yellow"
-"Mustard, Spicy Brown"
-"Mustard, Honey"
-"Mustard, Dijon"
-Dill Pickle Slices
-Mayo
-Miracle Whip
-Salad Dressing ENTRY
-Olives
-Ranch Mix
-Italian Dressing Mix
-Jude's Granola Bars
-Nutrigrain Bars
-Syrup	
-"Oats, QC"
-"Oats, OF"
-Cheerios
-Chex
-Rice Krispies
-Mini Wheats
-"Veggies, Other ENTRY"
-"Potatoes, Russet"
-"Potatoes, Red"
-"Potatoes, Sweet"
-Celery	
-"Peppers, Green	"
-"Peppers, Colored"
-"Tomatoes, Fresh"
-Napkins	
-Tissues
-TP	
-Paper Towels	
-Aluminum Foil	
-"Ziploc, Sandwich"
-"Ziploc, Freezer"
-"Ziploc, Gallon"
-"Trash Bags, White"
-"Trash Bags, Black"
+Raisins	
+Dried Cranberries	
 "Cheese, Swiss Block"
 "Cheese, Variety Block	"
 "Cheese, Sandwich	"
@@ -113,37 +93,25 @@ Aluminum Foil
 "Cheese, Other ENTRY"
 Sandwich Meat	
 "Biscuits, Canned"
-Coffee Filters
-Applesauce	
-"Fruit, Canned"
-"Corn, Canned"
-"Green Beans, Canned"
-Cream of Chicken Soup	
-Chicken Broth	
-Chicken Stock
-Tomato Soup	
-Canned Goods ENTRY
-Mushrooms
-"Tomato Paste, 6 oz.	"
-"Tomato Sauce, 8 oz."
-"Crushed Tomatoes, 28 oz."
-"Diced Tomatoes, 14.5 oz."
-"Beans, Black"
-"Beans, Pinto"
-"Beans, Chili	"
-"Beans, Red Kidney	"
-"Beans, Baked"
-Canned Chicken
-Chicken Stuffing
+"Rice, Instant Brown"
+"Rice, Instant White"
+"Rice, Long Grain"
+Jude's Granola Bars
+Nutrigrain Bars
+Syrup	
+"Oats, QC"
+"Oats, OF"
+Cheerios
+Chex
+Rice Krispies
+Mini Wheats
 Rotel	
 Taco Seasoning	
 Refried Beans	
-Tortillas	
 "Taco Shells, Hard"
-Pasta Salad
-Pizza Crust	
+Spices ENTRY
+Chili Seasoning
 Mac and Cheese
-Pepperoni	
 Parmesan Cheese	
 Elbow Macaroni
 Spaghetti	
@@ -158,9 +126,40 @@ Pesto
 Marinara Sauce	
 Pasta Sauce	
 Alfredo Sauce
-"Rice, Instant Brown"
-"Rice, Instant White"
-"Rice, Long Grain"
+Pepperoni	
+Cream of Chicken Soup	
+Chicken Broth	
+Chicken Stock
+Tomato Soup	
+Applesauce	
+"Fruit, Canned"
+"Beans, Black"
+"Beans, Pinto"
+"Beans, Chili	"
+"Beans, Red Kidney	"
+"Beans, Baked"
+"Corn, Canned"
+"Green Beans, Canned"
+Canned Goods ENTRY
+Mushrooms
+"Tomato Paste, 6 oz.	"
+"Tomato Sauce, 8 oz."
+"Crushed Tomatoes, 28 oz."
+"Diced Tomatoes, 14.5 oz."
+Canned Chicken
+Chicken Stuffing
+Pasta Salad
+Pizza Crust	
+Napkins	
+Tissues
+TP	
+Paper Towels	
+Aluminum Foil	
+"Ziploc, Sandwich"
+"Ziploc, Freezer"
+"Ziploc, Gallon"
+"Trash Bags, White"
+"Trash Bags, Black"
 "Sausage, Ground Italian (lb.)"
 "Beef, Ground (lb.)	"
 Chicken Breasts (lb.)	
@@ -168,12 +167,14 @@ Bacon
 "Sausage, Ground Bulk (lb.)"
 "Sausage, Smoked"
 Sausage Links
+Coffee Filters
 Hot Dogs
 Cream Cheese
 Whipped Cream Cheese
 "Butter, Stick"
 "Butter, Tub"
-Yogurt
+"Yogurt, Tubes"
+"Yogurt, Tub"
 Cottage Cheese
 Sour Cream
 Half and Half
