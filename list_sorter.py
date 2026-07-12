@@ -709,7 +709,10 @@ app.when_closed = closing_action
 
 auto_load = load_cfg_item(AUTOLOAD_CFG_KEY)
 if auto_load is not None:
-    load_list(auto_load)
+    try:
+        load_list(auto_load)
+    except:
+        pass
 
 # Set up email service
 if os.path.exists('credentials.txt'):
